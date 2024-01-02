@@ -21,6 +21,8 @@ def main():
 
     nodes_clicked = []
     editing_province = False
+    creating_neighbours = False
+    first_nei = None
 
     running = True
 
@@ -47,6 +49,10 @@ def main():
                         state.create_new_province(nodes_clicked)
                     editing_province = False
                     nodes_clicked = []
+                if e.key == p.K_l:
+                    print("Creating neighbours...")
+                    creating_neighbours = True
+                    first_nei = None
 
             elif e.type == p.KEYUP:
                 pass
@@ -57,6 +63,15 @@ def main():
                     node = state.get_node_clicked(pos)
                     if node is not None:
                         nodes_clicked.append(node.id)
+                elif creating_neighbours:
+                    pos = p.mouse.get_pos()
+                    province = state.get_province_clicked(pos)
+                    if first_nei is not None and province is not None:
+                        state.create_neighbour_pair(first_nei, province)
+                        first_nei = None
+                        creating_neighbours = False
+                    elif province is not None:
+                        first_nei = province
 
             elif e.type == p.MOUSEBUTTONUP:
                 pass

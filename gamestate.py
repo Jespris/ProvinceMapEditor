@@ -24,7 +24,7 @@ class State:
         if self.show_nodes:
             self.display_nodes(screen)
         for province in self.provinces.values():
-            province.draw(screen, self.border_nodes)
+            province.draw(screen, self.border_nodes, self.provinces)
 
     def display_nodes(self, screen):
         for node in self.border_nodes.values():
@@ -71,7 +71,7 @@ class State:
             data['nodes'].append({"id": node.id, "pos": list(node.pos)})
 
             with open('resources/province_data.json', "w") as data_file:
-                json.dump(data, data_file)
+                json.dump(data, data_file, indent=2)
         except Exception as e:
             print(f"Adding node {node.id}:{node.pos} to json file failed! {e}")
 
@@ -100,7 +100,7 @@ class State:
             })
 
             with open('resources/province_data.json', "w") as data_file:
-                json.dump(data, data_file)
+                json.dump(data, data_file, indent=2)
         except Exception as e:
             print(f"Adding province {new_province.name} to json file failed! {e}")
 
@@ -109,6 +109,13 @@ class State:
         for node in self.border_nodes.values():
             if node.is_clicked(pos):
                 return node
+        return None
+
+    def get_province_clicked(self, pos):
+        # TODO: Optimize this somehow?
+        for pro in self.provinces.values():
+            if pro.is_clicked(pos, self.border_nodes):
+                return pro
         return None
 
     @staticmethod
@@ -121,3 +128,9 @@ class State:
             name += letter
         name = name[0].upper() + name[1:]
         return name
+
+    def create_neighbour_pair(self, a: Province, b: Province):
+        a.add_neighbour(b.id)
+        b.add_neighbour(a.id)
+
+
