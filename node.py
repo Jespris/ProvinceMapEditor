@@ -3,7 +3,7 @@ import pygame as p
 
 class Node:
 
-    RADIUS = 10
+    RADIUS = 6
 
     def __init__(self, id, pos):
         self.id = id

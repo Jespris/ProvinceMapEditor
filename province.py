@@ -1,25 +1,41 @@
 from terraintype import TerrainType
+import pygame as p
+from typing import Union
 
 
 class Province:
+
+    BORDER_THICKNESS = 4
+
     def __init__(self, province_id):
         self.id: int = province_id
-        self.name: str = None
-        self.border: [(int, int)] = None
-        self.terrain: TerrainType = None
-        self.temperature: int = None
+        self.name: Union[str, None] = None
+        self.border: [int] = None
+        self.center_pos = None
+        self.terrain: Union[TerrainType, None] = None
+        self.temperature: Union[int, None] = None
+        self.neighbours: [int] = []
 
     def set_name(self, name):
         self.name = name
 
-    def set_border(self, border):
+    def set_border(self, border, node_dict):
         self.border = border
+        self.center_pos = self.calculate_center(node_dict)
+        self.temperature = self.calculate_temp()
 
     def set_terrain(self, terrain: TerrainType):
         self.terrain = terrain
 
     def set_temperature(self, temperature):
         self.temperature = temperature
+
+    def set_neighbours(self, neighbours):
+        self.neighbours = neighbours
+
+    def add_neighbour(self, neighbour_id):
+        self.neighbours.append(neighbour_id)
+        # TODO: add neighbour to json file
 
     def is_clicked(self, pos) -> bool:
         x = pos[0]
@@ -40,6 +56,42 @@ class Province:
             p1x, p1y = p2x, p2y
 
         return inside
+
+    def calculate_center(self, node_dict):
+        # TODO: calculate center
+        # idea 1: average all nodes' coordinates
+        x = 0
+        y = 0
+        for node_id in self.border:
+            x += node_dict[node_id].pos[0]
+            y += node_dict[node_id].pos[1]
+
+        return (x // len(self.border), y // len(self.border))
+
+    def calculate_temp(self):
+        # TODO: calculate average temp based on vertical position of the center coord lerping between like -20 to 40
+        return 15
+
+    def draw(self, screen, node_dict):
+        self.draw_name(screen)
+        self.draw_borders(screen, node_dict)
+
+    def draw_name(self, screen):
+        text_size = 18
+        font = p.font.Font('freesansbold.ttf', text_size)
+        text = font.render(self.name, False, p.Color("black"))
+        text_rect = text.get_rect()
+        text_rect.center = self.center_pos
+        screen.blit(text, text_rect)
+
+    def draw_borders(self, screen, node_dict):
+        for i in range(len(self.border)):
+            pos_1 = node_dict[self.border[i]].pos
+            if i == len(self.border) - 1:
+                pos_2 = node_dict[self.border[0]].pos
+            else:
+                pos_2 = node_dict[self.border[i + 1]].pos
+            p.draw.line(screen, p.Color("black"), pos_1, pos_2, self.BORDER_THICKNESS)
 
 
 

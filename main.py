@@ -19,6 +19,9 @@ def main():
     state = State()
     clock = p.time.Clock()
 
+    nodes_clicked = []
+    editing_province = False
+
     running = True
 
     while running:
@@ -31,12 +34,29 @@ def main():
                 if e.key == p.K_n:
                     # new border node
                     state.create_node(p.mouse.get_pos())
+                if e.key == p.K_p and not editing_province:
+                    print("Editing new province...")
+                    nodes_clicked = []
+                    editing_province = True
+                if e.key == p.K_o and editing_province:
+                    print("Finishing new province!")
+                    if nodes_clicked is None:
+                        # nothing should happen
+                        continue
+                    else:
+                        state.create_new_province(nodes_clicked)
+                    editing_province = False
+                    nodes_clicked = []
 
             elif e.type == p.KEYUP:
                 pass
 
             elif e.type == p.MOUSEBUTTONDOWN:
-                pass
+                if editing_province:
+                    pos = p.mouse.get_pos()
+                    node = state.get_node_clicked(pos)
+                    if node is not None:
+                        nodes_clicked.append(node.id)
 
             elif e.type == p.MOUSEBUTTONUP:
                 pass
