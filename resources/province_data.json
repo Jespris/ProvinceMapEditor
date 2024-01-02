@@ -3112,7 +3112,7 @@
   "provinces": [
     {
       "id": 0,
-      "name": "Ovd",
+      "name": "Corunna",
       "border": [
         0,
         89,
@@ -3121,7 +3121,7 @@
         28,
         29
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         1,
         5,
@@ -3131,7 +3131,7 @@
     },
     {
       "id": 1,
-      "name": "Kznqewg",
+      "name": "Lugo",
       "border": [
         1,
         2,
@@ -3141,7 +3141,7 @@
         26,
         27
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         0,
         2,
@@ -3153,7 +3153,7 @@
     },
     {
       "id": 2,
-      "name": "Divzffq",
+      "name": "Asturias",
       "border": [
         4,
         3,
@@ -3162,7 +3162,7 @@
         18,
         19
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         1,
         3,
@@ -3173,7 +3173,7 @@
     },
     {
       "id": 3,
-      "name": "Efadxmbb",
+      "name": "Cantabria",
       "border": [
         5,
         6,
@@ -3183,7 +3183,7 @@
         16,
         17
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         2,
         4,
@@ -3194,7 +3194,7 @@
     },
     {
       "id": 4,
-      "name": "Mvxxp",
+      "name": "Viscaya",
       "border": [
         7,
         9,
@@ -3204,7 +3204,7 @@
         14,
         8
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         3,
         24,
@@ -3217,7 +3217,7 @@
     },
     {
       "id": 5,
-      "name": "Hzhyyfnsq",
+      "name": "Porteverda",
       "border": [
         29,
         28,
@@ -3226,7 +3226,7 @@
         31,
         30
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         0,
         1,
@@ -3237,7 +3237,7 @@
     },
     {
       "id": 6,
-      "name": "Qhnw",
+      "name": "Monterrei",
       "border": [
         26,
         25,
@@ -3246,7 +3246,7 @@
         32,
         31
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         5,
         1,
@@ -3257,7 +3257,7 @@
     },
     {
       "id": 7,
-      "name": "Gicd",
+      "name": "Leon",
       "border": [
         19,
         18,
@@ -3268,7 +3268,7 @@
         24,
         25
       ],
-      "terrain": "flat",
+      "terrain": "MOUNTAIN",
       "neighbours": [
         2,
         1,
@@ -3278,7 +3278,7 @@
     },
     {
       "id": 8,
-      "name": "Xgjndrrbux",
+      "name": "Palencia",
       "border": [
         18,
         17,
@@ -3293,7 +3293,7 @@
         21,
         20
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         7,
         2,
@@ -3306,7 +3306,7 @@
     },
     {
       "id": 9,
-      "name": "Lxmxbswm",
+      "name": "Porto",
       "border": [
         30,
         31,
@@ -3315,7 +3315,7 @@
         34,
         35
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         5,
         6,
@@ -3326,7 +3326,7 @@
     },
     {
       "id": 10,
-      "name": "Zsvz",
+      "name": "Braganca",
       "border": [
         33,
         43,
@@ -3337,7 +3337,7 @@
         38,
         34
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         9,
         6,
@@ -3349,7 +3349,7 @@
     },
     {
       "id": 11,
-      "name": "Clhk",
+      "name": "Zamora",
       "border": [
         25,
         24,
@@ -3362,7 +3362,7 @@
         42,
         43
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         10,
         6,
@@ -3374,7 +3374,7 @@
     },
     {
       "id": 12,
-      "name": "Jwfqo",
+      "name": "Valladolid",
       "border": [
         46,
         47,
@@ -3386,7 +3386,7 @@
         44,
         45
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         11,
         8,
@@ -3398,7 +3398,7 @@
     },
     {
       "id": 13,
-      "name": "Tnecvihejv",
+      "name": "Aveiro",
       "border": [
         35,
         34,
@@ -3406,7 +3406,7 @@
         37,
         36
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         9,
         10,
@@ -3417,7 +3417,7 @@
     },
     {
       "id": 14,
-      "name": "Ythprffkdb",
+      "name": "Beira",
       "border": [
         38,
         39,
@@ -3429,7 +3429,7 @@
         60,
         37
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         13,
         10,
@@ -3454,7 +3454,7 @@
         39,
         40
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         14,
         10,
@@ -3466,7 +3466,7 @@
     },
     {
       "id": 16,
-      "name": "Nfijg",
+      "name": "Avila",
       "border": [
         52,
         51,
@@ -3475,7 +3475,7 @@
         83,
         53
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         15,
         12,
@@ -3486,7 +3486,7 @@
     },
     {
       "id": 17,
-      "name": "Eqaclyz",
+      "name": "Madrid",
       "border": [
         51,
         50,
@@ -3495,7 +3495,7 @@
         86,
         85
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         16,
         12,
@@ -3507,7 +3507,7 @@
     },
     {
       "id": 18,
-      "name": "Cxyydn",
+      "name": "Coimbra",
       "border": [
         36,
         37,
@@ -3516,7 +3516,7 @@
         61,
         62
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         13,
         14,
@@ -3527,7 +3527,7 @@
     },
     {
       "id": 19,
-      "name": "Nfbl",
+      "name": "Lisboa",
       "border": [
         62,
         61,
@@ -3537,7 +3537,7 @@
         63,
         65
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         18,
         20,
@@ -3547,7 +3547,7 @@
     },
     {
       "id": 20,
-      "name": "Brh",
+      "name": "Ribatejo",
       "border": [
         61,
         59,
@@ -3558,7 +3558,7 @@
         68,
         67
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         19,
         18,
@@ -3569,7 +3569,7 @@
     },
     {
       "id": 21,
-      "name": "Scoigald",
+      "name": "Evora",
       "border": [
         58,
         57,
@@ -3582,7 +3582,7 @@
         70,
         71
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         20,
         14,
@@ -3594,7 +3594,7 @@
     },
     {
       "id": 22,
-      "name": "Amomomxb",
+      "name": "Plasencia",
       "border": [
         55,
         54,
@@ -3604,7 +3604,7 @@
         82,
         56
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         14,
         15,
@@ -3615,7 +3615,7 @@
     },
     {
       "id": 23,
-      "name": "Bzz",
+      "name": "Caceres",
       "border": [
         56,
         82,
@@ -3627,7 +3627,7 @@
         76,
         57
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         21,
         14,
@@ -3640,7 +3640,7 @@
     },
     {
       "id": 24,
-      "name": "Kaqyzo",
+      "name": "Burgos",
       "border": [
         8,
         14,
@@ -3651,7 +3651,7 @@
         90,
         15
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         8,
         4,
@@ -3663,7 +3663,7 @@
     },
     {
       "id": 25,
-      "name": "Chgcsar",
+      "name": "Segovia",
       "border": [
         48,
         49,
@@ -3673,7 +3673,7 @@
         50,
         91
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         12,
         24,
@@ -3684,7 +3684,7 @@
     },
     {
       "id": 26,
-      "name": "Fuayeiey",
+      "name": "Beja Iberia",
       "border": [
         69,
         72,
@@ -3697,7 +3697,7 @@
         209,
         211
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         21,
         27,
@@ -3708,7 +3708,7 @@
     },
     {
       "id": 27,
-      "name": "Xhrbfqoplc",
+      "name": "Algarve",
       "border": [
         209,
         210,
@@ -3717,7 +3717,7 @@
         207,
         208
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         26,
         28,
@@ -3726,7 +3726,7 @@
     },
     {
       "id": 28,
-      "name": "Pkgqcc",
+      "name": "Huelva",
       "border": [
         202,
         196,
@@ -3738,7 +3738,7 @@
         204,
         203
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         27,
         26,
@@ -3749,7 +3749,7 @@
     },
     {
       "id": 29,
-      "name": "Xhlhv",
+      "name": "Badajoz",
       "border": [
         76,
         77,
@@ -3760,7 +3760,7 @@
         74,
         75
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         21,
         23,
@@ -3772,7 +3772,7 @@
     },
     {
       "id": 30,
-      "name": "Ejlkzkeck",
+      "name": "Sevilla",
       "border": [
         196,
         197,
@@ -3786,7 +3786,7 @@
         194,
         195
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         28,
         29,
@@ -3798,7 +3798,7 @@
     },
     {
       "id": 31,
-      "name": "Cysggqgs",
+      "name": "Cadiz",
       "border": [
         193,
         192,
@@ -3806,7 +3806,7 @@
         189,
         190
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         30,
         32,
@@ -3815,14 +3815,14 @@
     },
     {
       "id": 32,
-      "name": "Yeejot",
+      "name": "Gibraltar",
       "border": [
         188,
         187,
         191,
         189
       ],
-      "terrain": "flat",
+      "terrain": "MOUNTAIN",
       "neighbours": [
         31,
         33,
@@ -3832,7 +3832,7 @@
     },
     {
       "id": 33,
-      "name": "Qxvgwvxj",
+      "name": "Malaga",
       "border": [
         200,
         182,
@@ -3843,7 +3843,7 @@
         188,
         201
       ],
-      "terrain": "flat",
+      "terrain": "MOUNTAIN",
       "neighbours": [
         32,
         30,
@@ -3854,7 +3854,7 @@
     },
     {
       "id": 34,
-      "name": "Lbanizk",
+      "name": "Cordoba",
       "border": [
         79,
         148,
@@ -3869,7 +3869,7 @@
         197,
         78
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         33,
         30,
@@ -3882,7 +3882,7 @@
     },
     {
       "id": 35,
-      "name": "Rkqeif",
+      "name": "Toledo",
       "border": [
         83,
         84,
@@ -3897,7 +3897,7 @@
         80,
         81
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         22,
         16,
@@ -3910,7 +3910,7 @@
     },
     {
       "id": 36,
-      "name": "Dodoukfk",
+      "name": "La Mancha",
       "border": [
         80,
         147,
@@ -3922,7 +3922,7 @@
         148,
         79
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         34,
         23,
@@ -3933,7 +3933,7 @@
     },
     {
       "id": 37,
-      "name": "Jtt",
+      "name": "Jaen",
       "border": [
         149,
         150,
@@ -3945,7 +3945,7 @@
         231,
         230
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         34,
         36,
@@ -3955,7 +3955,7 @@
     },
     {
       "id": 38,
-      "name": "Yqk",
+      "name": "Granada",
       "border": [
         182,
         181,
@@ -3967,7 +3967,7 @@
         184,
         183
       ],
-      "terrain": "flat",
+      "terrain": "MOUNTAIN",
       "neighbours": [
         33,
         34,
@@ -3978,7 +3978,7 @@
     },
     {
       "id": 39,
-      "name": "Pagihwoawu",
+      "name": "Rioja",
       "border": [
         14,
         13,
@@ -3988,7 +3988,7 @@
         98,
         94
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         24,
         4,
@@ -3999,7 +3999,7 @@
     },
     {
       "id": 40,
-      "name": "Dgm",
+      "name": "Soria",
       "border": [
         94,
         98,
@@ -4012,7 +4012,7 @@
         88,
         93
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         25,
         17,
@@ -4025,7 +4025,7 @@
     },
     {
       "id": 41,
-      "name": "Oark",
+      "name": "Cuenca",
       "border": [
         87,
         102,
@@ -4040,7 +4040,7 @@
         142,
         86
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         35,
         17,
@@ -4052,7 +4052,7 @@
     },
     {
       "id": 42,
-      "name": "Lngdo",
+      "name": "Albacete",
       "border": [
         144,
         143,
@@ -4068,7 +4068,7 @@
         151,
         150
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         37,
         36,
@@ -4081,7 +4081,7 @@
     },
     {
       "id": 43,
-      "name": "Kvjqercnlx",
+      "name": "Almeria",
       "border": [
         152,
         153,
@@ -4092,7 +4092,7 @@
         177,
         178
       ],
-      "terrain": "flat",
+      "terrain": "MOUNTAIN",
       "neighbours": [
         38,
         42,
@@ -4102,7 +4102,7 @@
     },
     {
       "id": 44,
-      "name": "Kkbmoto",
+      "name": "Murcia",
       "border": [
         154,
         155,
@@ -4114,7 +4114,7 @@
         173,
         153
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         43,
         42,
@@ -4124,7 +4124,7 @@
     },
     {
       "id": 45,
-      "name": "Jmvbdzdhzp",
+      "name": "Alicante",
       "border": [
         156,
         166,
@@ -4133,7 +4133,7 @@
         169,
         170
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         44,
         46,
@@ -4142,7 +4142,7 @@
     },
     {
       "id": 46,
-      "name": "Rixx",
+      "name": "Xativa",
       "border": [
         161,
         162,
@@ -4153,7 +4153,7 @@
         157,
         158
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         41,
         42,
@@ -4164,7 +4164,7 @@
     },
     {
       "id": 47,
-      "name": "Bld",
+      "name": "Navarra",
       "border": [
         11,
         12,
@@ -4177,7 +4177,7 @@
         95,
         13
       ],
-      "terrain": "flat",
+      "terrain": "MOUNTAIN",
       "neighbours": [
         4,
         39,
@@ -4189,7 +4189,7 @@
     },
     {
       "id": 48,
-      "name": "Kblvdzed",
+      "name": "Huesca",
       "border": [
         106,
         108,
@@ -4203,7 +4203,7 @@
         104,
         105
       ],
-      "terrain": "flat",
+      "terrain": "MOUNTAIN",
       "neighbours": [
         47,
         49,
@@ -4215,7 +4215,7 @@
     },
     {
       "id": 49,
-      "name": "Iasqhjcemc",
+      "name": "Calataiud",
       "border": [
         96,
         103,
@@ -4228,7 +4228,7 @@
         99,
         97
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         47,
         48,
@@ -4240,7 +4240,7 @@
     },
     {
       "id": 50,
-      "name": "Wxokxen",
+      "name": "Teruel",
       "border": [
         100,
         117,
@@ -4251,7 +4251,7 @@
         163,
         101
       ],
-      "terrain": "flat",
+      "terrain": "MOUNTAIN",
       "neighbours": [
         41,
         40,
@@ -4263,7 +4263,7 @@
     },
     {
       "id": 51,
-      "name": "Fgtacpv",
+      "name": "Valencia",
       "border": [
         122,
         123,
@@ -4271,7 +4271,7 @@
         164,
         162
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         50,
         46,
@@ -4281,7 +4281,7 @@
     },
     {
       "id": 52,
-      "name": "Qrkh",
+      "name": "Zaragossa",
       "border": [
         114,
         113,
@@ -4292,7 +4292,7 @@
         117,
         116
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         50,
         49,
@@ -4303,7 +4303,7 @@
     },
     {
       "id": 53,
-      "name": "Bkbzane",
+      "name": "Castello",
       "border": [
         118,
         119,
@@ -4312,7 +4312,7 @@
         122,
         121
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         50,
         51,
@@ -4323,7 +4323,7 @@
     },
     {
       "id": 54,
-      "name": "Lcwbfbwqoh",
+      "name": "Tarragona",
       "border": [
         112,
         111,
@@ -4337,7 +4337,7 @@
         119,
         120
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         52,
         48,
@@ -4349,7 +4349,7 @@
     },
     {
       "id": 55,
-      "name": "Llv",
+      "name": "Urgell",
       "border": [
         109,
         141,
@@ -4360,7 +4360,7 @@
         111,
         110
       ],
-      "terrain": "flat",
+      "terrain": "MOUNTAIN",
       "neighbours": [
         48,
         54,
@@ -4371,7 +4371,7 @@
     },
     {
       "id": 56,
-      "name": "Xddxwoq",
+      "name": "Barcelona",
       "border": [
         136,
         137,
@@ -4381,7 +4381,7 @@
         139,
         138
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         55,
         54,
@@ -4392,7 +4392,7 @@
     },
     {
       "id": 57,
-      "name": "Jesmqcuc",
+      "name": "Girona",
       "border": [
         135,
         134,
@@ -4404,7 +4404,7 @@
         137,
         136
       ],
-      "terrain": "flat",
+      "terrain": "MOUNTAIN",
       "neighbours": [
         55,
         56,
@@ -4415,7 +4415,7 @@
     },
     {
       "id": 58,
-      "name": "Yatsetgkq",
+      "name": "North Atlantic",
       "border": [
         216,
         213,
@@ -4423,7 +4423,7 @@
         214,
         215
       ],
-      "terrain": "flat",
+      "terrain": "OCEAN",
       "neighbours": [
         59,
         63,
@@ -4442,7 +4442,7 @@
         0,
         212
       ],
-      "terrain": "flat",
+      "terrain": "OCEAN",
       "neighbours": [
         58,
         0,
@@ -4453,14 +4453,14 @@
     },
     {
       "id": 60,
-      "name": "Zai",
+      "name": "Bay of Biscay",
       "border": [
         223,
         226,
         225,
         224
       ],
-      "terrain": "flat",
+      "terrain": "OCEAN",
       "neighbours": [
         59,
         61,
@@ -4469,7 +4469,7 @@
     },
     {
       "id": 61,
-      "name": "Ijayczojy",
+      "name": "Cantabrian Sea",
       "border": [
         224,
         225,
@@ -4479,7 +4479,7 @@
         2,
         1
       ],
-      "terrain": "flat",
+      "terrain": "SEA",
       "neighbours": [
         59,
         60,
@@ -4490,7 +4490,7 @@
     },
     {
       "id": 62,
-      "name": "Bisx",
+      "name": "Cote D'Argent",
       "border": [
         226,
         227,
@@ -4504,7 +4504,7 @@
         5,
         225
       ],
-      "terrain": "flat",
+      "terrain": "SEA",
       "neighbours": [
         61,
         60,
@@ -4516,7 +4516,7 @@
     },
     {
       "id": 63,
-      "name": "Qcll",
+      "name": "Lusitanian Sea",
       "border": [
         212,
         0,
@@ -4529,7 +4529,7 @@
         217,
         214
       ],
-      "terrain": "flat",
+      "terrain": "OCEAN",
       "neighbours": [
         58,
         59,
@@ -4545,7 +4545,7 @@
     },
     {
       "id": 64,
-      "name": "Lvo",
+      "name": "Atlantic Ocean",
       "border": [
         215,
         214,
@@ -4554,7 +4554,7 @@
         219,
         220
       ],
-      "terrain": "flat",
+      "terrain": "OCEAN",
       "neighbours": [
         58,
         63,
@@ -4564,7 +4564,7 @@
     },
     {
       "id": 65,
-      "name": "Qypgrff",
+      "name": "Gulf of Cadiz",
       "border": [
         217,
         65,
@@ -4582,7 +4582,7 @@
         221,
         218
       ],
-      "terrain": "flat",
+      "terrain": "OCEAN",
       "neighbours": [
         64,
         63,
@@ -4597,14 +4597,14 @@
     },
     {
       "id": 66,
-      "name": "Janpx",
+      "name": "South Atlantic",
       "border": [
         218,
         221,
         222,
         219
       ],
-      "terrain": "flat",
+      "terrain": "OCEAN",
       "neighbours": [
         64,
         65,
@@ -4613,14 +4613,14 @@
     },
     {
       "id": 67,
-      "name": "Ibqe",
+      "name": "Tangiers",
       "border": [
         234,
         233,
         236,
         235
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         69,
         68,
@@ -4637,7 +4637,7 @@
         237,
         236
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         69,
         67,
@@ -4648,7 +4648,7 @@
     },
     {
       "id": 69,
-      "name": "Iejtjquwp",
+      "name": "Sale",
       "border": [
         235,
         236,
@@ -4657,7 +4657,7 @@
         239,
         240
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         67,
         68,
@@ -4668,7 +4668,7 @@
     },
     {
       "id": 70,
-      "name": "Iqnqhdbxs",
+      "name": "Gharb",
       "border": [
         240,
         239,
@@ -4678,7 +4678,7 @@
         242,
         241
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         69,
         71,
@@ -4687,7 +4687,7 @@
     },
     {
       "id": 71,
-      "name": "Qkku",
+      "name": "Fez",
       "border": [
         238,
         237,
@@ -4702,7 +4702,7 @@
         243,
         244
       ],
-      "terrain": "flat",
+      "terrain": "MOUNTAIN",
       "neighbours": [
         70,
         69,
@@ -4721,7 +4721,7 @@
         248,
         237
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         68,
         71,
@@ -4731,7 +4731,7 @@
     },
     {
       "id": 73,
-      "name": "Mxcva",
+      "name": "Melilla",
       "border": [
         246,
         249,
@@ -4743,7 +4743,7 @@
         349,
         247
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         71,
         72,
@@ -4754,7 +4754,7 @@
     },
     {
       "id": 74,
-      "name": "Lvnn",
+      "name": "Gibraltar Strait",
       "border": [
         205,
         206,
@@ -4779,7 +4779,7 @@
         222,
         221
       ],
-      "terrain": "flat",
+      "terrain": "SEA",
       "neighbours": [
         66,
         65,
@@ -4809,7 +4809,7 @@
         263,
         253
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         73,
         76,
@@ -4820,7 +4820,7 @@
     },
     {
       "id": 76,
-      "name": "Odecpnnw",
+      "name": "Oujda",
       "border": [
         253,
         263,
@@ -4831,7 +4831,7 @@
         350,
         254
       ],
-      "terrain": "flat",
+      "terrain": "MOUNTAIN",
       "neighbours": [
         71,
         73,
@@ -4841,7 +4841,7 @@
     },
     {
       "id": 77,
-      "name": "Qhva",
+      "name": "Wehran",
       "border": [
         269,
         270,
@@ -4852,7 +4852,7 @@
         266,
         267
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         75,
         78,
@@ -4863,7 +4863,7 @@
     },
     {
       "id": 78,
-      "name": "Uuv",
+      "name": "Tala Imsan",
       "border": [
         264,
         265,
@@ -4877,7 +4877,7 @@
         258,
         351
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         76,
         75,
@@ -4888,7 +4888,7 @@
     },
     {
       "id": 79,
-      "name": "Xaqugq",
+      "name": "Dahra",
       "border": [
         271,
         285,
@@ -4901,7 +4901,7 @@
         273,
         272
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         77,
         80,
@@ -4912,7 +4912,7 @@
     },
     {
       "id": 80,
-      "name": "Djny",
+      "name": "Ouarsenis",
       "border": [
         274,
         273,
@@ -4929,7 +4929,7 @@
         276,
         275
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         78,
         77,
@@ -4941,7 +4941,7 @@
     },
     {
       "id": 81,
-      "name": "Gidrnrcrjd",
+      "name": "Kasdir",
       "border": [
         278,
         277,
@@ -4952,7 +4952,7 @@
         260,
         259
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         78,
         80,
@@ -4962,7 +4962,7 @@
     },
     {
       "id": 82,
-      "name": "Xpws",
+      "name": "Gulf of Almeria",
       "border": [
         183,
         184,
@@ -4990,7 +4990,7 @@
         246,
         250
       ],
-      "terrain": "flat",
+      "terrain": "SEA",
       "neighbours": [
         74,
         38,
@@ -5006,7 +5006,7 @@
     },
     {
       "id": 83,
-      "name": "Akqvsvfhfo",
+      "name": "Mitija",
       "border": [
         282,
         318,
@@ -5017,7 +5017,7 @@
         313,
         281
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         79,
         80,
@@ -5028,7 +5028,7 @@
     },
     {
       "id": 84,
-      "name": "Nmkdb",
+      "name": "Titteri",
       "border": [
         313,
         314,
@@ -5042,7 +5042,7 @@
         311,
         312
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         80,
         81,
@@ -5054,7 +5054,7 @@
     },
     {
       "id": 85,
-      "name": "Amisqvqul",
+      "name": "Kabylia",
       "border": [
         316,
         319,
@@ -5070,7 +5070,7 @@
         314,
         315
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         83,
         84,
@@ -5083,7 +5083,7 @@
     },
     {
       "id": 86,
-      "name": "Vqwho",
+      "name": "Hodna",
       "border": [
         328,
         327,
@@ -5095,7 +5095,7 @@
         330,
         329
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         84,
         85,
@@ -5105,7 +5105,7 @@
     },
     {
       "id": 87,
-      "name": "Anxkncx",
+      "name": "Mzab",
       "border": [
         310,
         332,
@@ -5120,7 +5120,7 @@
         261,
         260
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         81,
         84,
@@ -5130,7 +5130,7 @@
     },
     {
       "id": 88,
-      "name": "Qhwhuq",
+      "name": "Aures",
       "border": [
         326,
         325,
@@ -5141,7 +5141,7 @@
         336,
         335
       ],
-      "terrain": "flat",
+      "terrain": "MOUNTAIN",
       "neighbours": [
         87,
         86,
@@ -5151,7 +5151,7 @@
     },
     {
       "id": 89,
-      "name": "Njggm",
+      "name": "Kef",
       "border": [
         325,
         324,
@@ -5163,7 +5163,7 @@
         341,
         340
       ],
-      "terrain": "flat",
+      "terrain": "MOUNTAIN",
       "neighbours": [
         88,
         85,
@@ -5172,7 +5172,7 @@
     },
     {
       "id": 90,
-      "name": "Loafv",
+      "name": "Annaba",
       "border": [
         322,
         348,
@@ -5184,7 +5184,7 @@
         343,
         323
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         89,
         85,
@@ -5193,7 +5193,7 @@
     },
     {
       "id": 91,
-      "name": "Pxdqlbp",
+      "name": "Barbary coast",
       "border": [
         287,
         289,
@@ -5219,7 +5219,7 @@
         284,
         286
       ],
-      "terrain": "flat",
+      "terrain": "SEA",
       "neighbours": [
         82,
         79,
@@ -5233,7 +5233,7 @@
     },
     {
       "id": 92,
-      "name": "Zljuinduau",
+      "name": "Mallorca",
       "border": [
         292,
         293,
@@ -5243,7 +5243,7 @@
         290,
         291
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         91,
         93,
@@ -5253,7 +5253,7 @@
     },
     {
       "id": 93,
-      "name": "Nyials",
+      "name": "Gulf of Valencia",
       "border": [
         128,
         297,
@@ -5275,7 +5275,7 @@
         126,
         127
       ],
-      "terrain": "flat",
+      "terrain": "SEA",
       "neighbours": [
         91,
         92,
@@ -5291,7 +5291,7 @@
     },
     {
       "id": 94,
-      "name": "Wsltljult",
+      "name": "Western Mediterranean",
       "border": [
         294,
         298,
@@ -5302,7 +5302,7 @@
         305,
         295
       ],
-      "terrain": "flat",
+      "terrain": "SEA",
       "neighbours": [
         92,
         91,
@@ -5312,7 +5312,7 @@
     },
     {
       "id": 95,
-      "name": "Uuh",
+      "name": "Labourd",
       "border": [
         363,
         373,
@@ -5326,7 +5326,7 @@
         10,
         228
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         62,
         4,
@@ -5339,7 +5339,7 @@
     },
     {
       "id": 96,
-      "name": "Ahul",
+      "name": "Bordeaux",
       "border": [
         227,
         364,
@@ -5353,7 +5353,7 @@
         363,
         229
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         62,
         95,
@@ -5365,7 +5365,7 @@
     },
     {
       "id": 97,
-      "name": "Tgdryrz",
+      "name": "Naintonge",
       "border": [
         364,
         368,
@@ -5373,7 +5373,7 @@
         366,
         365
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         96,
         98
@@ -5381,7 +5381,7 @@
     },
     {
       "id": 98,
-      "name": "Mugoxvcigq",
+      "name": "Perigord",
       "border": [
         366,
         367,
@@ -5392,7 +5392,7 @@
         420,
         369
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         96,
         97,
@@ -5402,7 +5402,7 @@
     },
     {
       "id": 99,
-      "name": "Zmnxs",
+      "name": "Quercy",
       "border": [
         369,
         420,
@@ -5416,7 +5416,7 @@
         412,
         370
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         96,
         98,
@@ -5429,7 +5429,7 @@
     },
     {
       "id": 100,
-      "name": "Lqobnsaobg",
+      "name": "Armagnac",
       "border": [
         372,
         371,
@@ -5443,7 +5443,7 @@
         375,
         374
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         95,
         96,
@@ -5455,7 +5455,7 @@
     },
     {
       "id": 101,
-      "name": "Kuhm",
+      "name": "Bearn",
       "border": [
         376,
         375,
@@ -5467,7 +5467,7 @@
         383,
         377
       ],
-      "terrain": "flat",
+      "terrain": "MOUNTAIN",
       "neighbours": [
         95,
         100,
@@ -5477,7 +5477,7 @@
     },
     {
       "id": 102,
-      "name": "Opscefs",
+      "name": "Comminger",
       "border": [
         380,
         384,
@@ -5490,7 +5490,7 @@
         382,
         381
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         101,
         100,
@@ -5501,7 +5501,7 @@
     },
     {
       "id": 103,
-      "name": "Lxkpwd",
+      "name": "Toulouse",
       "border": [
         411,
         413,
@@ -5515,7 +5515,7 @@
         385,
         384
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         100,
         102,
@@ -5527,7 +5527,7 @@
     },
     {
       "id": 104,
-      "name": "Phep",
+      "name": "Foix",
       "border": [
         393,
         394,
@@ -5538,7 +5538,7 @@
         388,
         387
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         102,
         103,
@@ -5549,7 +5549,7 @@
     },
     {
       "id": 105,
-      "name": "Ocrwibtn",
+      "name": "Rosillion",
       "border": [
         391,
         392,
@@ -5558,7 +5558,7 @@
         133,
         134
       ],
-      "terrain": "flat",
+      "terrain": "MOUNTAIN",
       "neighbours": [
         57,
         104,
@@ -5569,7 +5569,7 @@
     },
     {
       "id": 106,
-      "name": "Oim",
+      "name": "Pyrenees",
       "border": [
         12,
         377,
@@ -5586,7 +5586,7 @@
         106,
         107
       ],
-      "terrain": "flat",
+      "terrain": "MOUNTAIN",
       "neighbours": [
         105,
         57,
@@ -5602,7 +5602,7 @@
     },
     {
       "id": 107,
-      "name": "Teg",
+      "name": "Carcassonne",
       "border": [
         394,
         396,
@@ -5612,7 +5612,7 @@
         392,
         395
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         105,
         104,
@@ -5624,7 +5624,7 @@
     },
     {
       "id": 108,
-      "name": "Sbw",
+      "name": "Limousin",
       "border": [
         368,
         424,
@@ -5634,7 +5634,7 @@
         418,
         421
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         99,
         98,
@@ -5643,7 +5643,7 @@
     },
     {
       "id": 109,
-      "name": "Cfrowa",
+      "name": "Auvergne",
       "border": [
         424,
         425,
@@ -5656,7 +5656,7 @@
         422,
         423
       ],
-      "terrain": "flat",
+      "terrain": "MOUNTAIN",
       "neighbours": [
         108,
         99,
@@ -5667,7 +5667,7 @@
     },
     {
       "id": 110,
-      "name": "Hvxjtri",
+      "name": "Milau",
       "border": [
         416,
         429,
@@ -5679,7 +5679,7 @@
         415,
         414
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         103,
         107,
@@ -5691,7 +5691,7 @@
     },
     {
       "id": 111,
-      "name": "Qqegt",
+      "name": "Montpellier",
       "border": [
         398,
         399,
@@ -5703,7 +5703,7 @@
         353,
         397
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         107,
         110,
@@ -5715,7 +5715,7 @@
     },
     {
       "id": 112,
-      "name": "Wxidjam",
+      "name": "Vivarais",
       "border": [
         428,
         427,
@@ -5729,7 +5729,7 @@
         398,
         430
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         111,
         110,
@@ -5741,7 +5741,7 @@
     },
     {
       "id": 113,
-      "name": "Xig",
+      "name": "Aix",
       "border": [
         402,
         403,
@@ -5751,7 +5751,7 @@
         356,
         355
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         111,
         114,
@@ -5763,7 +5763,7 @@
     },
     {
       "id": 114,
-      "name": "Hpbuj",
+      "name": "Gulf of Lion",
       "border": [
         353,
         354,
@@ -5783,7 +5783,7 @@
         132,
         352
       ],
-      "terrain": "flat",
+      "terrain": "SEA",
       "neighbours": [
         94,
         92,
@@ -5799,7 +5799,7 @@
     },
     {
       "id": 115,
-      "name": "Xtgci",
+      "name": "Cote D'Azur",
       "border": [
         356,
         357,
@@ -5813,7 +5813,7 @@
         300,
         301
       ],
-      "terrain": "flat",
+      "terrain": "SEA",
       "neighbours": [
         114,
         94,
@@ -5824,7 +5824,7 @@
     },
     {
       "id": 116,
-      "name": "Jdhychzp",
+      "name": "Toulon",
       "border": [
         405,
         406,
@@ -5835,7 +5835,7 @@
         358,
         357
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         113,
         115,
@@ -5845,7 +5845,7 @@
     },
     {
       "id": 117,
-      "name": "Dqdpijdldq",
+      "name": "Avignon",
       "border": [
         401,
         434,
@@ -5854,7 +5854,7 @@
         403,
         402
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         113,
         111,
@@ -5865,7 +5865,7 @@
     },
     {
       "id": 118,
-      "name": "Tzh",
+      "name": "Forez",
       "border": [
         425,
         433,
@@ -5873,7 +5873,7 @@
         431,
         426
       ],
-      "terrain": "flat",
+      "terrain": "FLAT",
       "neighbours": [
         112,
         109,
@@ -5882,7 +5882,7 @@
     },
     {
       "id": 119,
-      "name": "Ybjwmt",
+      "name": "Dauphine",
       "border": [
         433,
         439,
@@ -5893,7 +5893,7 @@
         434,
         432
       ],
-      "terrain": "flat",
+      "terrain": "MOUNTAIN",
       "neighbours": [
         118,
         112,
@@ -5904,7 +5904,7 @@
     },
     {
       "id": 120,
-      "name": "Arqibxnumb",
+      "name": "Forcalquier",
       "border": [
         435,
         436,
@@ -5917,7 +5917,7 @@
         405,
         404
       ],
-      "terrain": "flat",
+      "terrain": "MOUNTAIN",
       "neighbours": [
         116,
         113,
@@ -5930,7 +5930,7 @@
     },
     {
       "id": 121,
-      "name": "Qfhvlix",
+      "name": "The Alps",
       "border": [
         439,
         440,
@@ -5940,7 +5940,7 @@
         437,
         438
       ],
-      "terrain": "flat",
+      "terrain": "MOUNTAIN",
       "neighbours": [
         120,
         119,
@@ -5949,7 +5949,7 @@
     },
     {
       "id": 122,
-      "name": "Jcw",
+      "name": "Cuneo",
       "border": [
         441,
         443,
@@ -5957,7 +5957,7 @@
         409,
         442
       ],
-      "terrain": "flat",
+      "terrain": "MOUNTAIN",
       "neighbours": [
         120,
         121,
@@ -5966,7 +5966,7 @@
     },
     {
       "id": 123,
-      "name": "Ubtsgz",
+      "name": "Nizza",
       "border": [
         408,
         409,
@@ -5975,7 +5975,7 @@
         361,
         407
       ],
-      "terrain": "flat",
+      "terrain": "HILLS",
       "neighbours": [
         116,
         120,

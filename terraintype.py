@@ -1,22 +1,24 @@
-from enum import Enum
+from enum import Enum, auto
 
 
 class TerrainType(Enum):
-    OCEAN = 0
-    SEA = 1
-    FLAT = 2
-    HILLS = 3
-    MOUNTAIN = 4
+    OCEAN = auto()
+    SEA = auto()
+    FLAT = auto()
+    HILLS = auto()
+    MOUNTAIN = auto()
 
     @classmethod
     def get_terrain(cls, terrain):
-        if terrain == "ocean":
-            return cls.OCEAN
-        if terrain == "sea":
-            return cls.SEA
-        if terrain == "flat":
-            return cls.FLAT
-        if terrain == "hills":
-            return cls.HILLS
-        if terrain == "mountain":
-            return cls.MOUNTAIN
+        terrain_map = {
+            "ocean": cls.OCEAN,
+            "sea": cls.SEA,
+            "flat": cls.FLAT,
+            "hills": cls.HILLS,
+            "mountain": cls.MOUNTAIN
+        }
+        return terrain_map.get(terrain.lower(), None)  # Using lower() for case-insensitivity
+
+    def to_string(self):
+        return self.name
+

@@ -2,10 +2,36 @@ import json
 import random
 import string
 import pygame as p
+
+from button import EditProvinceButton, NameButton, TerrainButton
 from node import Node
 from province import Province
 from terraintype import TerrainType
 from typing import Union
+
+
+def create_buttons():
+    buttons = []
+
+    name_button = NameButton((20, 20), "Edit name")
+    buttons.append(name_button)
+
+    ocean_button = TerrainButton((140, 20), "Ocean", TerrainType.OCEAN)
+    buttons.append(ocean_button)
+
+    sea_button = TerrainButton((260, 20), "Sea", TerrainType.SEA)
+    buttons.append(sea_button)
+
+    flat_button = TerrainButton((380, 20), "Flat", TerrainType.FLAT)
+    buttons.append(flat_button)
+
+    hills_button = TerrainButton((500, 20), "Hills", TerrainType.HILLS)
+    buttons.append(hills_button)
+
+    mountain_button = TerrainButton((620, 20), "Mountain", TerrainType.MOUNTAIN)
+    buttons.append(mountain_button)
+
+    return buttons
 
 
 class State:
@@ -13,10 +39,11 @@ class State:
         self.border_nodes: {int: Node} = {}
         self.provinces: {int: Province} = {}
         self.selected_province: Union[int, None] = None
+        self.buttons: [EditProvinceButton] = create_buttons()
         self.parse_data()
 
     def update(self, screen, ref_image, delta_time):
-        # screen.fill(p.Color("black"))
+        screen.fill(p.Color("black"))
         screen.blit(ref_image, (0, 0))
 
         for province_id, province in self.provinces.items():
@@ -25,8 +52,11 @@ class State:
                 province.draw(screen, self.border_nodes, self.provinces)
             else:
                 province.is_selected = False
+            # province.draw(screen, self.border_nodes, self.provinces)
 
         # self.display_nodes(screen)
+        if self.selected_province is not None:
+            self.show_edit_province_buttons(screen)
 
         self.show_fps(screen, delta_time)
 
@@ -144,5 +174,18 @@ class State:
             text_rect = text.get_rect()
             text_rect.topleft = (0, 0)
             screen.blit(text, text_rect)
+
+    def show_edit_province_buttons(self, screen):
+        for button in self.buttons:
+            button.draw(screen)
+
+    def get_button_pressed(self, pos):
+        if self.selected_province is not None:  # redundant
+            for button in self.buttons:
+                if button.is_clicked(pos):
+                    button.on_click(self.provinces[self.selected_province])
+                    self.selected_province = None
+                    return True
+        return False
 
 

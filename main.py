@@ -64,6 +64,11 @@ def main():
 
             elif e.type == p.MOUSEBUTTONDOWN:
                 pos = p.mouse.get_pos()
+                if state.selected_province is not None:
+                    # check if edit buttons are pressed
+                    if state.get_button_pressed(pos):
+                        continue
+
                 province = state.get_province_clicked(pos)
                 if editing_province:
                     node = state.get_node_clicked(pos)
@@ -77,7 +82,10 @@ def main():
                     elif province is not None:
                         first_nei = province
                 if province is not None:
-                    state.selected_province = province.id
+                    if state.selected_province is not None and state.selected_province == province.id:
+                        state.selected_province = None
+                    else:
+                        state.selected_province = province.id
 
             elif e.type == p.MOUSEBUTTONUP:
                 pass
@@ -91,7 +99,7 @@ def main():
         delta_time = clock.get_rawtime()
         p.display.flip()
 
-    # p.image.save(screen, 'output/CreatedGame.png')
+    p.image.save(screen, 'output/CreatedGame.png')
 
     print("Goodbye!")
 

@@ -9,6 +9,13 @@ class Province:
 
     BORDER_THICKNESS = 4
     HIGHLIGHT_COLOR = p.Color("yellow")
+    TERRAIN_COLOR = {
+        TerrainType.FLAT: p.Color("darkseagreen"),
+        TerrainType.HILLS: p.Color("wheat"),
+        TerrainType.MOUNTAIN: p.Color("burlywood4"),
+        TerrainType.OCEAN: p.Color("cadetblue4"),
+        TerrainType.SEA: p.Color("cadetblue3")
+    }
 
     def __init__(self, province_id):
         self.id: int = province_id
@@ -23,6 +30,19 @@ class Province:
 
     def set_name(self, name):
         self.name = name
+        try:
+            with open('resources/province_data.json', "r") as data_file:
+                data = json.load(data_file)
+
+            for province in data["provinces"]:
+                if province["id"] == self.id:
+                    province["name"] = name
+                    break
+
+            with open('resources/province_data.json', "w") as data_file:
+                json.dump(data, data_file, indent=2)
+        except Exception as e:
+            print(f"Setting name ({name}) to province to json file failed! {e}")
 
     def set_border(self, border, node_dict):
         self.border = border
@@ -31,6 +51,19 @@ class Province:
 
     def set_terrain(self, terrain: TerrainType):
         self.terrain = terrain
+        try:
+            with open('resources/province_data.json', "r") as data_file:
+                data = json.load(data_file)
+
+            for province in data["provinces"]:
+                if province["id"] == self.id:
+                    province["terrain"] = terrain.to_string()
+                    break
+
+            with open('resources/province_data.json', "w") as data_file:
+                json.dump(data, data_file, indent=2)
+        except Exception as e:
+            print(f"Setting terrain to province to json file failed! {e}")
 
     def set_temperature(self, temperature):
         self.temperature = temperature
@@ -106,7 +139,8 @@ class Province:
         if self.is_selected:
             color = self.HIGHLIGHT_COLOR
         else:
-            color = p.Color("white")
+            color = self.TERRAIN_COLOR[self.terrain]
+
         p.draw.polygon(screen, color, [node_dict[node_id].pos for node_id in self.border])
 
         for i in range(len(self.border)):
@@ -116,7 +150,6 @@ class Province:
             else:
                 pos_2 = node_dict[self.border[i + 1]].pos
             p.draw.line(screen, p.Color("black"), pos_1, pos_2, self.BORDER_THICKNESS)
-
 
     def draw_neighbour_connections(self, screen, province_dict):
         pos_a = self.center_pos
