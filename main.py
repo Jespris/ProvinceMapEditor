@@ -27,11 +27,17 @@ def main():
                 print(e.key)
                 if e.key == p.K_ESCAPE:
                     running = False
+                if e.key == p.K_n:
+                    # new border node
+                    state.create_node(p.mouse.get_pos())
 
             elif e.type == p.KEYUP:
                 pass
 
             elif e.type == p.MOUSEBUTTONDOWN:
+                pass
+
+            elif e.type == p.MOUSEBUTTONUP:
                 pass
 
             elif e.type == p.QUIT:
