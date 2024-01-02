@@ -91,7 +91,7 @@ class Province:
 
     def draw(self, screen, node_dict, province_dict):
         self.draw_borders(screen, node_dict)
-        # self.draw_neighbour_connections(screen, province_dict)
+        self.draw_neighbour_connections(screen, province_dict)
         self.draw_name(screen)
 
     def draw_name(self, screen):

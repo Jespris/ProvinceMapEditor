@@ -21,14 +21,17 @@ class State:
     def update(self, screen, ref_image, delta_time):
         screen.fill(p.Color("white"))
         screen.blit(ref_image, (0, 0))
-        if self.show_nodes:
-            self.display_nodes(screen)
+
         for province_id, province in self.provinces.items():
             if province_id == self.selected_province:
                 province.is_selected = True
             else:
                 province.is_selected = False
             province.draw(screen, self.border_nodes, self.provinces)
+
+        if self.show_nodes:
+            self.display_nodes(screen)
+
         self.show_fps(screen, delta_time)
 
     def display_nodes(self, screen):
