@@ -59,20 +59,21 @@ def main():
                 pass
 
             elif e.type == p.MOUSEBUTTONDOWN:
+                pos = p.mouse.get_pos()
+                province = state.get_province_clicked(pos)
                 if editing_province:
-                    pos = p.mouse.get_pos()
                     node = state.get_node_clicked(pos)
                     if node is not None:
                         nodes_clicked.append(node.id)
                 elif creating_neighbours:
-                    pos = p.mouse.get_pos()
-                    province = state.get_province_clicked(pos)
                     if first_nei is not None and province is not None:
                         state.create_neighbour_pair(first_nei, province)
                         first_nei = None
                         creating_neighbours = False
                     elif province is not None:
                         first_nei = province
+                if province is not None:
+                    state.selected_province = province.id
 
             elif e.type == p.MOUSEBUTTONUP:
                 pass

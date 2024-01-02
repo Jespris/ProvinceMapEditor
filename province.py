@@ -8,6 +8,7 @@ from typing import Union
 class Province:
 
     BORDER_THICKNESS = 4
+    HIGHLIGHT_COLOR = p.Color("yellow")
 
     def __init__(self, province_id):
         self.id: int = province_id
@@ -17,6 +18,8 @@ class Province:
         self.terrain: Union[TerrainType, None] = None
         self.temperature: Union[int, None] = None
         self.neighbours: [int] = []
+
+        self.is_selected = False
 
     def set_name(self, name):
         self.name = name
@@ -87,9 +90,9 @@ class Province:
         return 15
 
     def draw(self, screen, node_dict, province_dict):
-        self.draw_name(screen)
         self.draw_borders(screen, node_dict)
         # self.draw_neighbour_connections(screen, province_dict)
+        self.draw_name(screen)
 
     def draw_name(self, screen):
         text_size = 18
@@ -100,6 +103,12 @@ class Province:
         screen.blit(text, text_rect)
 
     def draw_borders(self, screen, node_dict):
+        if self.is_selected:
+            color = self.HIGHLIGHT_COLOR
+        else:
+            color = p.Color("white")
+        p.draw.polygon(screen, color, [node_dict[node_id].pos for node_id in self.border])
+
         for i in range(len(self.border)):
             pos_1 = node_dict[self.border[i]].pos
             if i == len(self.border) - 1:
@@ -107,6 +116,7 @@ class Province:
             else:
                 pos_2 = node_dict[self.border[i + 1]].pos
             p.draw.line(screen, p.Color("black"), pos_1, pos_2, self.BORDER_THICKNESS)
+
 
     def draw_neighbour_connections(self, screen, province_dict):
         pos_a = self.center_pos

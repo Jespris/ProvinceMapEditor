@@ -1,12 +1,11 @@
 import json
 import random
 import string
-
 import pygame as p
-
 from node import Node
 from province import Province
 from terraintype import TerrainType
+from typing import Union
 
 
 class State:
@@ -16,14 +15,19 @@ class State:
     def __init__(self):
         self.border_nodes: {int: Node} = {}
         self.provinces: {int: Province} = {}
+        self.selected_province: Union[int, None] = None
         self.parse_data()
 
     def update(self, screen, ref_image, delta_time):
         screen.fill(p.Color("white"))
-        # screen.blit(ref_image, (0, 0))
+        screen.blit(ref_image, (0, 0))
         if self.show_nodes:
             self.display_nodes(screen)
-        for province in self.provinces.values():
+        for province_id, province in self.provinces.items():
+            if province_id == self.selected_province:
+                province.is_selected = True
+            else:
+                province.is_selected = False
             province.draw(screen, self.border_nodes, self.provinces)
         self.show_fps(screen, delta_time)
 
