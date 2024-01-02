@@ -18,13 +18,14 @@ class State:
         self.provinces: {int: Province} = {}
         self.parse_data()
 
-    def update(self, screen, ref_image):
+    def update(self, screen, ref_image, delta_time):
         screen.fill(p.Color("white"))
-        screen.blit(ref_image, (0, 0))
+        # screen.blit(ref_image, (0, 0))
         if self.show_nodes:
             self.display_nodes(screen)
         for province in self.provinces.values():
             province.draw(screen, self.border_nodes, self.provinces)
+        self.show_fps(screen, delta_time)
 
     def display_nodes(self, screen):
         for node in self.border_nodes.values():
@@ -132,5 +133,13 @@ class State:
     def create_neighbour_pair(self, a: Province, b: Province):
         a.add_neighbour(b.id)
         b.add_neighbour(a.id)
+
+    def show_fps(self, screen, delta_time):
+        if delta_time != 0:
+            font = p.font.Font("freesansbold.ttf", 24)
+            text = font.render(f"FPS: {1000 // delta_time}", True, p.Color("red"))
+            text_rect = text.get_rect()
+            text_rect.topleft = (0, 0)
+            screen.blit(text, text_rect)
 
 

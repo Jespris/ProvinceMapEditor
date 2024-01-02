@@ -18,6 +18,7 @@ def main():
     image = load_ref_image()
     state = State()
     clock = p.time.Clock()
+    delta_time = 0
 
     nodes_clicked = []
     editing_province = False
@@ -81,14 +82,15 @@ def main():
 
         # update
         clock.tick(FPS)
-        state.update(screen, image)
+        state.update(screen, image, delta_time)
+        delta_time = clock.get_rawtime()
         p.display.flip()
 
     print("Goodbye!")
 
 
 def load_ref_image():
-    return p.transform.scale(p.image.load('resources/Eu4ProvinceMapEurope.png'), (WIDTH, HEIGHT))
+    return p.transform.scale(p.image.load('resources/spainEU4.png'), (WIDTH, HEIGHT))
 
 
 if __name__ == "__main__":

@@ -3,14 +3,15 @@ import pygame as p
 
 class Node:
 
-    RADIUS = 6
+    RADIUS = 10
 
     def __init__(self, id, pos):
         self.id = id
         self.pos = pos
 
     def draw(self, screen):
-        p.draw.circle(screen, p.Color("black"), self.pos, self.RADIUS)
+        return
+        # p.draw.circle(screen, p.Color("green"), self.pos, self.RADIUS)
 
     def is_clicked(self, pos):
         return (self.pos[0] - self.RADIUS <= pos[0] <= self.pos[0] + self.RADIUS and
