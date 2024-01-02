@@ -4,8 +4,8 @@ from win32api import GetSystemMetrics
 from gamestate import State
 
 # GLOBALS
-WIDTH = 500  # GetSystemMetrics(0)
-HEIGHT = 500  # GetSystemMetrics(1)
+WIDTH = GetSystemMetrics(0)
+HEIGHT = GetSystemMetrics(1)
 FPS = 30
 
 
@@ -14,6 +14,7 @@ def main():
     p.init()
     screen = p.display.set_mode((WIDTH, HEIGHT))
     p.display.set_caption("Province Map Editor")
+    image = load_ref_image()
     state = State()
     clock = p.time.Clock()
 
@@ -38,11 +39,14 @@ def main():
 
         # update
         clock.tick(FPS)
-        state.update(screen)
+        state.update(screen, image)
         p.display.flip()
 
     print("Goodbye!")
 
+
+def load_ref_image():
+    return p.transform.scale(p.image.load('resources/Eu4ProvinceMapEurope.png'), (WIDTH, HEIGHT))
 
 
 if __name__ == "__main__":
