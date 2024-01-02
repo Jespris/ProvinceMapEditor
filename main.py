@@ -10,6 +10,10 @@ HEIGHT = GetSystemMetrics(1)
 FPS = 30
 
 
+def save_screen():
+    pass
+
+
 def main():
     print("Hello!")
     p.init()
@@ -87,11 +91,13 @@ def main():
         delta_time = clock.get_rawtime()
         p.display.flip()
 
+    # p.image.save(screen, 'output/CreatedGame.png')
+
     print("Goodbye!")
 
 
 def load_ref_image():
-    return p.transform.scale(p.image.load('resources/spainEU4.png'), (WIDTH, HEIGHT))
+    return p.transform.scale(p.image.load('resources/StaticMapImage.png'), (WIDTH, HEIGHT))
 
 
 if __name__ == "__main__":

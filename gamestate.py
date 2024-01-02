@@ -9,9 +9,6 @@ from typing import Union
 
 
 class State:
-
-    show_nodes = True
-
     def __init__(self):
         self.border_nodes: {int: Node} = {}
         self.provinces: {int: Province} = {}
@@ -19,18 +16,17 @@ class State:
         self.parse_data()
 
     def update(self, screen, ref_image, delta_time):
-        screen.fill(p.Color("white"))
+        # screen.fill(p.Color("black"))
         screen.blit(ref_image, (0, 0))
 
         for province_id, province in self.provinces.items():
             if province_id == self.selected_province:
                 province.is_selected = True
+                province.draw(screen, self.border_nodes, self.provinces)
             else:
                 province.is_selected = False
-            province.draw(screen, self.border_nodes, self.provinces)
 
-        if self.show_nodes:
-            self.display_nodes(screen)
+        # self.display_nodes(screen)
 
         self.show_fps(screen, delta_time)
 
