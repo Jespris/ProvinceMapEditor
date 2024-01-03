@@ -28,6 +28,12 @@ class Province:
 
         self.is_selected = False
 
+    def __eq__(self, other):
+        if not isinstance(other, Province):
+            return False
+
+        return self.id == other.id and self.name == other.name
+
     def set_name(self, name):
         self.name = name
         try:
@@ -156,6 +162,29 @@ class Province:
         for neighbour_id in self.neighbours:
             pos_b = province_dict[neighbour_id].center_pos
             p.draw.line(screen, p.Color("pink"), pos_a, pos_b, self.BORDER_THICKNESS)
+
+    def is_passable(self):
+        # TODO: implement impassable terrain?
+        return True
+
+    def cost_to_enter(self, cost_so_far: int, source_terrain: TerrainType, unit):
+        cost = unit.cost_to_enter_province(self, cost_so_far)
+
+        embarking_penalty = 100  # 10 Days with base move regen
+        if ((source_terrain.is_water() and not self.terrain.is_water()) or
+                (not source_terrain.is_water() and self.terrain.is_water())):
+            cost += embarking_penalty
+
+        print(f"Cost to enter this province ({self.name}): {cost}")
+        return cost
+
+    def base_cost_to_enter(self):
+        return 1 / self.terrain.get_movement_speed()
+
+    def get_neighbours(self) -> [int]:
+        return self.neighbours
+
+
 
 
 

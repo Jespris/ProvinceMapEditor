@@ -1,13 +1,17 @@
 import json
+import math
 import random
 import string
 import pygame as p
 
 from button import EditProvinceButton, NameButton, TerrainButton
 from node import Node
+from pathFinder import PathSearch
 from province import Province
 from terraintype import TerrainType
-from typing import Union
+from typing import Union, Optional
+
+from unit import Unit
 
 
 def create_buttons():
@@ -188,4 +192,36 @@ class State:
                     return True
         return False
 
+    @staticmethod
+    def get_province_distance(province_a: Province, province_b: Province) -> int:
+        return int(math.sqrt((province_a.center_pos[0] - province_b.center_pos[0])**2 +
+                             (province_a.center_pos[1] - province_b.center_pos[1])**2))
+
+    def get_province_id_distance(self, a: int, b: int) -> int:
+        pro_a = self.provinces[a]
+        pro_b = self.provinces[b]
+        return self.get_province_distance(pro_a, pro_b)
+
+    def get_province_by_name(self, name) -> Optional[Province]:
+        for province in self.provinces.values():
+            if province.name == name:
+                return province
+        return None
+
+    def set_unit_path(self, unit: Unit, end_id: int):
+        end_province = self.provinces[end_id]
+        assert isinstance(end_province, Province)
+        if end_province.is_passable():
+            print(f"Setting path from {unit.current_province.name} to {end_province.name}")
+            path_search = PathSearch(self.provinces, unit, unit.current_province.id, end_id, self.get_province_distance)
+            path_search.find_path()
+            assert path_search.path is not None
+            unit.path = path_search.path
+
+    def get_random_province(self):
+        # TODO: implement!
+        return self.provinces[0]  # hopefully this always exists
+
+    def get_province(self, province_id):
+        return self.provinces[province_id]
 

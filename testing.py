@@ -1,6 +1,9 @@
+from gamestate import State
 from province import Province
 import matplotlib.pyplot as plt
 from matplotlib.patches import Polygon
+
+from unit import Unit
 
 
 def test_point_inside_polygon():
@@ -94,7 +97,36 @@ def plot_polygon_and_point(polygon, point, result):
     plt.show()
 
 
+def test_distances():
+    state = State()
+    # test distances between some random provinces
+    barcelona = state.get_province_by_name("Barcelona")
+    mallorca = state.get_province_by_name("Mallorca")
+    madrid = state.get_province_by_name("Madrid")
+    bar_mal = state.get_province_distance(barcelona, mallorca)
+    print(f"Distance between {barcelona.name} and {mallorca.name} is {str(bar_mal)}")
+    mad_mal = state.get_province_id_distance(madrid.id, mallorca.id)
+    print(f"Distance between {madrid.name} and {mallorca.name} is {str(mad_mal)}")
+    mal_mad = state.get_province_distance(mallorca, madrid)
+    print(f"Madrid - Mallorca = Mallorca - Madrid: {mad_mal == mal_mad}")
+
+
+def test_pathing():
+    state = State()
+    start_province = state.get_province_by_name("Leon")
+    unit = Unit("Bob", start_province)
+    end_province = state.get_province_by_name("Gibraltar")
+    state.set_unit_path(unit, end_province.id)
+    print(f"Path from {start_province.name} to {end_province.name}:")
+    print([state.get_province(province_id).name for province_id in unit.path])
+    bird_distance = unit.distance(end_province.center_pos)
+    print(f"Straight line length from {start_province.name} to {end_province.name}: {bird_distance}")
+    print(f"Best case amount of days: {bird_distance / unit.move_points_regen}")
+
+
 def test_set():
-    test_point_inside_polygon()
+    # test_point_inside_polygon()
+    # test_distances()
+    test_pathing()
     
     

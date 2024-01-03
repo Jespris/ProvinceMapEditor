@@ -22,3 +22,21 @@ class TerrainType(Enum):
     def to_string(self):
         return self.name
 
+    def get_movement_speed(self):
+        if self == self.SEA:
+            return 2
+        elif self == self.OCEAN:
+            return 1.8
+        elif self == self.FLAT:
+            return 1
+        elif self == self.HILLS:
+            return 0.7
+        elif self == self.MOUNTAIN:
+            return 0.3
+
+    def is_water(self):
+        if self == self.SEA or self == self.OCEAN:
+            return True
+        return False
+
+
