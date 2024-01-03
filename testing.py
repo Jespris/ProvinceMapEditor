@@ -118,7 +118,7 @@ def test_pathing():
     end_province = state.get_province_by_name("Gibraltar")
     state.set_unit_path(unit, end_province.id)
     print(f"Path from {start_province.name} to {end_province.name}:")
-    print([state.get_province(province_id).name for province_id in unit.path])
+    print([province.name for province in unit.path])
     bird_distance = unit.distance(end_province.center_pos)
     print(f"Straight line length from {start_province.name} to {end_province.name}: {bird_distance}")
     print(f"Best case amount of days: {bird_distance / unit.move_points_regen}")

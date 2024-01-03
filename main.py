@@ -64,28 +64,38 @@ def main():
 
             elif e.type == p.MOUSEBUTTONDOWN:
                 pos = p.mouse.get_pos()
+                print(f"Mouse button pressed: {e.button}")
                 if state.selected_province is not None:
                     # check if edit buttons are pressed
-                    if state.get_button_pressed(pos):
-                        continue
+                    if e.button == 1:
+                        if state.get_button_pressed(pos):
+                            continue
+                    if e.button == 3:
+                        # right click, we test pathing
+                        clicked_province = state.get_province_clicked(pos)
+                        if clicked_province is not None and clicked_province != state.selected_province:
+                            # right-click on a different province with a province selected
+                            unit = state.create_unit("Bob", state.get_province(state.selected_province))
+                            state.set_unit_path(unit, clicked_province.id)
 
-                province = state.get_province_clicked(pos)
-                if editing_province:
-                    node = state.get_node_clicked(pos)
-                    if node is not None:
-                        nodes_clicked.append(node.id)
-                elif creating_neighbours:
-                    if first_nei is not None and province is not None:
-                        state.create_neighbour_pair(first_nei, province)
-                        first_nei = None
-                        creating_neighbours = False
-                    elif province is not None:
-                        first_nei = province
-                if province is not None:
-                    if state.selected_province is not None and state.selected_province == province.id:
-                        state.selected_province = None
-                    else:
-                        state.selected_province = province.id
+                if e.button == 1:  # left click
+                    province = state.get_province_clicked(pos)
+                    if editing_province:
+                        node = state.get_node_clicked(pos)
+                        if node is not None:
+                            nodes_clicked.append(node.id)
+                    elif creating_neighbours:
+                        if first_nei is not None and province is not None:
+                            state.create_neighbour_pair(first_nei, province)
+                            first_nei = None
+                            creating_neighbours = False
+                        elif province is not None:
+                            first_nei = province
+                    if province is not None:
+                        if state.selected_province is not None and state.selected_province == province.id:
+                            state.selected_province = None
+                        else:
+                            state.selected_province = province.id
 
             elif e.type == p.MOUSEBUTTONUP:
                 pass

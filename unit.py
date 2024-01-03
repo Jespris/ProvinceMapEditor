@@ -1,5 +1,7 @@
 import math
 
+import pygame as p
+
 from province import Province
 
 
@@ -11,7 +13,7 @@ class Unit:
         self.current_province = spawn_province
         self.move_points_regen = 10
 
-    def update(self):  # should get called every day
+    def daily_update(self):  # should get called every day
         if self.has_path():
             self.movement_points += self.move_points_regen
             self.move()
@@ -20,6 +22,10 @@ class Unit:
 
     def move(self):
         if self.has_path():
+            if self.current_province == self.path[0]:  # check if the current province is the next in path?!?
+                # print("Current is next")
+                self.current_province = self.path.pop(0)
+
             movement_cost = self.get_next_province().base_cost_to_enter()
             # TODO: add current province as a parameter to cost_function?
             if self.movement_points - movement_cost >= 0:
@@ -56,6 +62,26 @@ class Unit:
     def distance(self, b):
         a = self.current_province.center_pos
         return math.sqrt((a[0] - b[0])**2 + (a[1] - b[1])**2)
+
+    def draw(self, screen, selected_province_id):
+        # Maybe only draw path if the province is selected
+        p.draw.rect(screen, p.Color("green"), p.Rect(self.current_province.center_pos, (16, 16)))
+        if self.has_path():
+            self.draw_path(screen)
+
+    def draw_path(self, screen):
+        if len(self.path) >= 1:  # why do I need to check this here?!?
+            p.draw.line(screen, p.Color("black"), self.current_province.center_pos, self.path[0].center_pos, 8)
+            p.draw.circle(screen, p.Color("red"), self.path[-1].center_pos, 10)
+
+        for i in range(len(self.path) - 1):
+            start = self.path[i]
+            end = self.path[i + 1]
+            assert isinstance(start, Province)
+            assert isinstance(end, Province)
+            p.draw.line(screen, p.Color("black"), start.center_pos, end.center_pos, 8)
+
+
 
 
 

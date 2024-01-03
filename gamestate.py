@@ -44,10 +44,16 @@ class State:
         self.provinces: {int: Province} = {}
         self.selected_province: Union[int, None] = None
         self.buttons: [EditProvinceButton] = create_buttons()
+        self.day = 0
+        self.lapsed_ms = 0
+        self.units: [Unit] = []
+        self.is_paused = False
         self.parse_data()
 
     def update(self, screen, ref_image, delta_time):
-        screen.fill(p.Color("black"))
+        if not self.is_paused:
+            self.update_in_game_time(delta_time)
+        # screen.fill(p.Color("black"))
         screen.blit(ref_image, (0, 0))
 
         for province_id, province in self.provinces.items():
@@ -58,11 +64,19 @@ class State:
                 province.is_selected = False
             # province.draw(screen, self.border_nodes, self.provinces)
 
+        for unit in self.units:
+            unit.draw(screen, self.selected_province)
+
         # self.display_nodes(screen)
         if self.selected_province is not None:
             self.show_edit_province_buttons(screen)
 
         self.show_fps(screen, delta_time)
+
+    def create_unit(self, name, province) -> Unit:
+        unit = Unit(name, province)
+        self.units.append(unit)
+        return unit
 
     def display_nodes(self, screen):
         for node in self.border_nodes.values():
@@ -216,7 +230,8 @@ class State:
             path_search = PathSearch(self.provinces, unit, unit.current_province.id, end_id, self.get_province_distance)
             path_search.find_path()
             assert path_search.path is not None
-            unit.path = path_search.path
+            path = [self.get_province(province_id) for province_id in path_search.path]
+            unit.path = path
 
     def get_random_province(self):
         # TODO: implement!
@@ -224,4 +239,17 @@ class State:
 
     def get_province(self, province_id):
         return self.provinces[province_id]
+
+    def update_in_game_time(self, delta_time):
+        self.lapsed_ms += delta_time
+        ms_per_day = 1000  # 1s per day
+        if self.lapsed_ms > ms_per_day:
+            self.day += 1
+            self.update_day()
+            self.lapsed_ms -= ms_per_day
+
+    def update_day(self):
+        for unit in self.units:
+            unit.daily_update()
+
 
