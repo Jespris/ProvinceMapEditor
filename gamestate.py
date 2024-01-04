@@ -97,17 +97,23 @@ class State:
             self.border_nodes[node_id] = node
 
         for province_data in data['provinces']:
+            pro_center = None
             print(province_data)
             pro_id = province_data['id']
             pro_name = province_data['name']
             pro_border = province_data['border']
             pro_terrain = province_data['terrain']
+            try:
+                pro_center = province_data['center']
+            except Exception as e:
+                print(f"Province has no defined center property, {e}")
             terrain = TerrainType.get_terrain(pro_terrain)
             pro_neighbours = province_data['neighbours']
 
             province = Province(pro_id)
             province.set_name(pro_name)
             province.set_border(pro_border, self.border_nodes)
+            province.set_center(pro_center, self.border_nodes)
             province.set_terrain(terrain)
             province.set_neighbours(pro_neighbours)
             self.provinces[province.id] = province
@@ -136,6 +142,7 @@ class State:
         new_province = Province(len(self.provinces))
         new_province.set_name(self.generate_random_name())
         new_province.set_border(nodes_id, self.border_nodes)
+        new_province.set_center(None, self.border_nodes)
 
         self.provinces[new_province.id] = new_province
         try:
@@ -148,7 +155,8 @@ class State:
                 "name": new_province.name,
                 "border": new_province.border,
                 "terrain": "flat",
-                "neighbours": []
+                "neighbours": [],
+                "center": new_province.center_pos
             })
 
             with open('resources/province_data.json', "w") as data_file:
@@ -159,14 +167,14 @@ class State:
     def get_node_clicked(self, pos):
         # TODO: Optimize into quadrants?
         for node in self.border_nodes.values():
-            if node.is_clicked(pos):
+            if node.point_inside_province(pos):
                 return node
         return None
 
     def get_province_clicked(self, pos):
         # TODO: Optimize this somehow?
         for pro in self.provinces.values():
-            if pro.is_clicked(pos, self.border_nodes):
+            if pro.point_inside_province(pos, self.border_nodes):
                 return pro
         return None
 

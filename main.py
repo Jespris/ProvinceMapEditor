@@ -5,13 +5,9 @@ from gamestate import State
 from testing import test_set
 
 # GLOBALS
-WIDTH = GetSystemMetrics(0)
-HEIGHT = GetSystemMetrics(1)
+WIDTH = GetSystemMetrics(0)  # 1920 on PC monitor
+HEIGHT = GetSystemMetrics(1)  # 1080
 FPS = 30
-
-
-def save_screen():
-    pass
 
 
 def main():
@@ -115,7 +111,7 @@ def main():
 
 
 def load_ref_image():
-    return p.transform.scale(p.image.load('resources/StaticMapImage.png'), (WIDTH, HEIGHT))
+    return p.transform.scale(p.image.load('resources/StaticMapImage.png'), (1920, 1080))
 
 
 if __name__ == "__main__":

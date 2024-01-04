@@ -1,5 +1,7 @@
+import itertools
 import json
 
+import calculations
 from terraintype import TerrainType
 import pygame as p
 from typing import Union
@@ -28,6 +30,8 @@ class Province:
 
         self.is_selected = False
 
+        self.development = 1
+
     def __eq__(self, other):
         if not isinstance(other, Province):
             return False
@@ -50,9 +54,30 @@ class Province:
         except Exception as e:
             print(f"Setting name ({name}) to province to json file failed! {e}")
 
+    def set_center(self, pos, node_dict):
+        if pos is None:
+            pos = calculations.calculate_center([node_dict[id].pos for id in self.border])
+            self.center_pos = (int(pos[0]), int(pos[1]))
+            try:
+                with open('resources/province_data.json', "r") as data_file:
+                    data = json.load(data_file)
+
+                c_x, c_y = self.center_pos
+                for province in data["provinces"]:
+                    if province["id"] == self.id:
+                        province["center"] = (c_x, c_y)
+                        break
+
+                with open('resources/province_data.json', "w") as data_file:
+                    json.dump(data, data_file, indent=2)
+            except Exception as e:
+                print(f"Setting center pos to province to json file failed! {e}")
+        else:
+            self.center_pos = pos
+
     def set_border(self, border, node_dict):
         self.border = border
-        self.center_pos = self.calculate_center(node_dict)
+        self.set_center(None, node_dict)
         self.temperature = self.calculate_temp()
 
     def set_terrain(self, terrain: TerrainType):
@@ -93,7 +118,7 @@ class Province:
         except Exception as e:
             print(f"Adding neighbour to province to json file failed! {e}")
 
-    def is_clicked(self, pos, node_dict) -> bool:
+    def point_inside_province(self, pos, node_dict) -> bool:
         x = pos[0]
         y = pos[1]
         n = len(self.border)
@@ -113,16 +138,9 @@ class Province:
 
         return inside
 
-    def calculate_center(self, node_dict):
-        # TODO: calculate center
-        # idea 1: average all nodes' coordinates
-        x = 0
-        y = 0
-        for node_id in self.border:
-            x += node_dict[node_id].pos[0]
-            y += node_dict[node_id].pos[1]
-
-        return (x // len(self.border), y // len(self.border))
+    def set_random_dev(self):
+        # TODO: random development
+        pass
 
     def calculate_temp(self):
         # TODO: calculate average temp based on vertical position of the center coord lerping between like -20 to 40

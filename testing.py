@@ -1,9 +1,36 @@
+import numpy as np
+
+import calculations
 from gamestate import State
 from province import Province
 import matplotlib.pyplot as plt
 from matplotlib.patches import Polygon
-
 from unit import Unit
+from calculations import calculate_center
+
+
+def plot_polygon_and_farthest_point(vertices, farthest_point):
+    x = [vertex.pos[0] for vertex in vertices]
+    y = [vertex.pos[1] for vertex in vertices]
+
+    plt.plot(x + [x[0]], y + [y[0]], 'b-')  # Connect the last point to the first to close the polygon
+    plt.scatter(*zip(*[vertex for vertex in vertices]), color='red', label='Polygon Vertices')
+    plt.scatter(*farthest_point, color='green', label='Farthest Point')
+
+    plt.title('Polygon and Farthest Point')
+    plt.legend()
+    plt.xlabel('X-axis')
+    plt.ylabel('Y-axis')
+    plt.grid(True)
+    plt.show()
+
+
+def test_center():
+    # Example usage:
+    polygon_vertices = np.array([(0, 0), (10, 0), (10, 10), (7, 7), (0, 10)])
+    center = calculate_center(polygon_vertices)
+    plot_polygon_and_point(polygon_vertices, center, True)
+    print("Chebyshev Center:", center)
 
 
 def test_point_inside_polygon():
@@ -12,56 +39,56 @@ def test_point_inside_polygon():
     polygon = [(0, 0), (0, 5), (5, 5), (5, 0)]
     point = (2, 2)
     province.set_border(polygon)
-    result = province.is_clicked(point)
+    result = province.point_inside_province(point)
     print(f"The point {point} is inside polygon: {str(result)}, expected result: true")
 
     # test 2
     polygon = [(0, 0), (0, 5), (5, 5), (5, 0)]
     point = (6, 6)
     province.set_border(polygon)
-    result = province.is_clicked(point)
+    result = province.point_inside_province(point)
     print(f"The point {point} is inside polygon: {str(result)}, expected result: false")
 
     # test 3
     polygon = [(0, 0), (0, 5), (5, 5), (5, 0), (3, 3)]
     point = (3, 3)
     province.set_border(polygon)
-    result = province.is_clicked(point)
+    result = province.point_inside_province(point)
     print(f"The point {point} is inside polygon: {str(result)}, expected result: true")
 
     # test 4
     polygon = [(0, 0), (0, 5), (5, 5), (5, 0), (3, 3)]
     point = (6, 6)
     province.set_border(polygon)
-    result = province.is_clicked(point)
+    result = province.point_inside_province(point)
     print(f"The point {point} is inside polygon: {str(result)}, expected result: false")
 
     # test 5
     polygon = [(0, 0), (0, 5), (2, 6), (5, 5), (5, 0)]
     point = (2, 3)
     province.set_border(polygon)
-    result = province.is_clicked(point)
+    result = province.point_inside_province(point)
     print(f"The point {point} is inside polygon: {str(result)}, expected result: true")
 
     # test 6
     polygon = [(0, 0), (0, 5), (2, 6), (5, 5), (5, 0)]
     point = (4, 4)
     province.set_border(polygon)
-    result = province.is_clicked(point)
+    result = province.point_inside_province(point)
     print(f"The point {point} is inside polygon: {str(result)}, expected result: true")
 
     # test 7
     polygon = [(0, 0), (2, 5), (1, 8), (4, 10), (7, 8), (6, 5), (8, 0)]
     point = (4, 6)
     province.set_border(polygon)
-    result = province.is_clicked(point)
+    result = province.point_inside_province(point)
     print(f"The point {point} is inside polygon: {str(result)}, expected result: true")
 
     # test 8
     polygon = [(0, 0), (2, 5), (1, 8), (4, 10), (7, 8), (6, 5), (8, 0)]
     point = (1, 4)
     province.set_border(polygon)
-    result = province.is_clicked(point)
+    result = province.point_inside_province(point)
     print(f"The point {point} is inside polygon: {str(result)}, expected result: false")
     print("Plotting...")
     plot_polygon_and_point(polygon, point, result)
@@ -70,7 +97,7 @@ def test_point_inside_polygon():
     polygon = [(0, 0), (1, 8), (4, 10), (7, 8), (6, 5), (8, 0)]
     point = (1, 4)
     province.set_border(polygon)
-    result = province.is_clicked(point)
+    result = province.point_inside_province(point)
     print(f"The point {point} is inside polygon: {str(result)}, expected result: true")
     print("Plotting...")
     plot_polygon_and_point(polygon, point, result)
@@ -127,6 +154,7 @@ def test_pathing():
 def test_set():
     # test_point_inside_polygon()
     # test_distances()
-    test_pathing()
+    # test_pathing()
+    test_center()
     
     
