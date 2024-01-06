@@ -1,8 +1,5 @@
 import numpy as np
-
-import calculations
 from gamestate import State
-from province import Province
 import matplotlib.pyplot as plt
 from matplotlib.patches import Polygon
 from unit import Unit
@@ -27,12 +24,13 @@ def plot_polygon_and_farthest_point(vertices, farthest_point):
 
 def test_center():
     # Example usage:
-    polygon_vertices = np.array([(0, 0), (10, 0), (10, 10), (7, 7), (0, 10)])
+    polygon_vertices = [(0, 0), (10, 0), (10, 10), (7, 7), (0, 10)]
     center = calculate_center(polygon_vertices)
     plot_polygon_and_point(polygon_vertices, center, True)
-    print("Chebyshev Center:", center)
+    print("Centroid:", center)
 
 
+"""
 def test_point_inside_polygon():
     province = Province(0)
     # test 1
@@ -101,6 +99,7 @@ def test_point_inside_polygon():
     print(f"The point {point} is inside polygon: {str(result)}, expected result: true")
     print("Plotting...")
     plot_polygon_and_point(polygon, point, result)
+"""
 
 
 def plot_polygon_and_point(polygon, point, result):

@@ -115,5 +115,5 @@ def load_ref_image():
 
 
 if __name__ == "__main__":
-    main()
-    # test_set()
+    # main()
+    test_set()

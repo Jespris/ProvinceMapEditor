@@ -1,9 +1,8 @@
-from pypoman.polyhedron import compute_chebyshev_center
-
-from pypoman.duality import compute_polytope_halfspaces
+from sympy.geometry.polygon import Polygon
 
 
 def calculate_center(vertices):
-    a, b = compute_polytope_halfspaces(vertices)
-    center = compute_chebyshev_center(a, b)
-    return center
+
+    polygon = Polygon(*vertices)
+    point = polygon.centroid
+    return (int(point[0]), int(point[1]))
