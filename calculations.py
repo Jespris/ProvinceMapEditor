@@ -5,4 +5,4 @@ def calculate_center(vertices):
 
     polygon = Polygon(*vertices)
     point = polygon.centroid
-    return (int(point[0]), int(point[1]))
+    return int(point[0]), int(point[1])

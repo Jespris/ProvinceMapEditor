@@ -1,7 +1,9 @@
 import itertools
 import json
+import random
 
 import calculations
+from mapmodes import MapMode
 from terraintype import TerrainType
 import pygame as p
 from typing import Union
@@ -139,17 +141,28 @@ class Province:
         return inside
 
     def set_random_dev(self):
-        # TODO: random development
-        pass
+        if not self.terrain.is_water():
+            # Mean around 3, standard deviation determines the spread
+            mu = 3
+            sigma = 1.5
+
+            # Generate a random number with a normal distribution
+            random_number = random.normalvariate(mu, sigma)
+            # mountains get a penalty of 2
+            if self.terrain == TerrainType.MOUNTAIN:
+                random_number -= 2
+
+            # Ensure the number is within the desired range (1-10)
+            self.development = max(1, min(10, round(random_number)))
 
     def calculate_temp(self):
         # TODO: calculate average temp based on vertical position of the center coord lerping between like -20 to 40
         return 15
 
-    def draw(self, screen, node_dict, province_dict):
-        self.draw_borders(screen, node_dict)
-        # self.draw_neighbour_connections(screen, province_dict)
-        self.draw_name(screen)
+    def draw(self, screen, node_dict, map_mode, hide_names):
+        self.draw_province(screen, node_dict, map_mode)
+        if not hide_names:
+            self.draw_name(screen)
 
     def draw_name(self, screen):
         text_size = 18
@@ -159,11 +172,8 @@ class Province:
         text_rect.center = self.center_pos
         screen.blit(text, text_rect)
 
-    def draw_borders(self, screen, node_dict):
-        if self.is_selected:
-            color = self.HIGHLIGHT_COLOR
-        else:
-            color = self.TERRAIN_COLOR[self.terrain]
+    def draw_province(self, screen, node_dict, map_mode: MapMode):
+        color = self.get_color(map_mode)
 
         p.draw.polygon(screen, color, [node_dict[node_id].pos for node_id in self.border])
 
@@ -202,6 +212,32 @@ class Province:
     def get_neighbours(self) -> [int]:
         return self.neighbours
 
+    def get_color(self, map_mode: MapMode):
+        if self.is_selected:
+            return self.HIGHLIGHT_COLOR
+
+        default = self.TERRAIN_COLOR[self.terrain]
+
+        if not self.terrain.is_water():
+            if map_mode.is_dev():
+                return self.lerp_dev_color()
+            elif map_mode == MapMode.POLITICAL:
+                return default  # TODO: implement political map mode
+
+        return default
+
+    def lerp_dev_color(self):
+        start_color = (255, 0, 0)  # Red
+        end_color = (0, 255, 0)    # Green
+        t = self.development / 10.0
+        return self.lerp_color(start_color, end_color, t)
+
+    @staticmethod
+    def lerp_color(start_color, end_color, t):
+        r = int((1 - t) * start_color[0] + t * end_color[0])
+        g = int((1 - t) * start_color[1] + t * end_color[1])
+        b = int((1 - t) * start_color[2] + t * end_color[2])
+        return (r, g, b)
 
 
 

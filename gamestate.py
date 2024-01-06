@@ -5,6 +5,7 @@ import string
 import pygame as p
 
 from button import EditProvinceButton, NameButton, TerrainButton
+from mapmodes import MapMode
 from node import Node
 from pathFinder import PathSearch
 from province import Province
@@ -46,23 +47,31 @@ class State:
         self.buttons: [EditProvinceButton] = create_buttons()
         self.day = 0
         self.lapsed_ms = 0
+        self.game_speed = 1  # TODO: implement game speed
         self.units: [Unit] = []
         self.is_paused = False
+        self.map_mode: MapMode = MapMode.TERRAIN
+        self.hide_names = True
+
         self.parse_data()
 
     def update(self, screen, ref_image, delta_time):
         if not self.is_paused:
             self.update_in_game_time(delta_time)
-        # screen.fill(p.Color("black"))
-        screen.blit(ref_image, (0, 0))
+
+        screen.fill(p.Color("black"))
+        if self.map_mode == MapMode.TERRAIN:
+            screen.blit(ref_image, (0, 0))
 
         for province_id, province in self.provinces.items():
             if province_id == self.selected_province:
                 province.is_selected = True
-                province.draw(screen, self.border_nodes, self.provinces)
+                if self.map_mode == MapMode.TERRAIN:
+                    province.draw(screen, self.border_nodes, self.map_mode, self.hide_names)
             else:
                 province.is_selected = False
-            # province.draw(screen, self.border_nodes, self.provinces)
+            if self.map_mode != MapMode.TERRAIN:
+                province.draw(screen, self.border_nodes, self.map_mode, self.hide_names)
 
         for unit in self.units:
             unit.draw(screen, self.selected_province)
@@ -116,8 +125,17 @@ class State:
             province.set_center(pro_center, self.border_nodes)
             province.set_terrain(terrain)
             province.set_neighbours(pro_neighbours)
+            province.set_random_dev()
             self.provinces[province.id] = province
         print("Parsing complete!")
+
+    def set_map_mode(self, i: int):
+        if i == 1:
+            self.map_mode = MapMode.TERRAIN
+        elif i == 2:
+            self.map_mode = MapMode.DEVELOPMENT
+        elif i == 2:
+            self.map_mode = MapMode.POLITICAL
 
     def add_node(self, node: Node):
         self.border_nodes[node.id] = node

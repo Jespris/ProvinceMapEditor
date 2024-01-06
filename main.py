@@ -54,6 +54,14 @@ def main():
                     print("Creating neighbours...")
                     creating_neighbours = True
                     first_nei = None
+                if e.key == p.K_1:h
+                    state.set_map_mode(1)
+                if e.key == p.K_2:
+                    state.set_map_mode(2)
+                if e.key == p.K_3:
+                    state.set_map_mode(3)
+                if e.key == p.K_h:
+                    state.hide_names = not state.hide_names
 
             elif e.type == p.KEYUP:
                 pass
@@ -115,5 +123,5 @@ def load_ref_image():
 
 
 if __name__ == "__main__":
-    # main()
-    test_set()
+    main()
+    # test_set()
