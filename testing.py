@@ -1,5 +1,5 @@
 import numpy as np
-from gamestate import State
+from gamestate import GameState
 import matplotlib.pyplot as plt
 from matplotlib.patches import Polygon
 from unit import Unit
@@ -124,7 +124,7 @@ def plot_polygon_and_point(polygon, point, result):
 
 
 def test_distances():
-    state = State()
+    state = GameState()
     # test distances between some random provinces
     barcelona = state.get_province_by_name("Barcelona")
     mallorca = state.get_province_by_name("Mallorca")
@@ -138,7 +138,7 @@ def test_distances():
 
 
 def test_pathing():
-    state = State()
+    state = GameState()
     start_province = state.get_province_by_name("Leon")
     unit = Unit("Bob", start_province)
     end_province = state.get_province_by_name("Gibraltar")

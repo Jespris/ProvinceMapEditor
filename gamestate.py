@@ -11,7 +11,6 @@ from pathFinder import PathSearch
 from province import Province
 from terraintype import TerrainType
 from typing import Union, Optional
-
 from unit import Unit
 
 
@@ -39,8 +38,9 @@ def create_buttons():
     return buttons
 
 
-class State:
+class GameState:
     def __init__(self):
+        # Initialize game state attributes
         self.border_nodes: {int: Node} = {}
         self.provinces: {int: Province} = {}
         self.selected_province: Union[int, None] = None
@@ -55,7 +55,9 @@ class State:
 
         self.parse_data()
 
+    # region Game state updaters
     def update(self, screen, ref_image, delta_time):
+        # Main update function for the game state
         if not self.is_paused:
             self.update_in_game_time(delta_time)
 
@@ -82,16 +84,28 @@ class State:
 
         self.show_fps(screen, delta_time)
 
-    def create_unit(self, name, province) -> Unit:
-        unit = Unit(name, province)
-        self.units.append(unit)
-        return unit
-
     def display_nodes(self, screen):
+        # Draw all border nodes on the screen
         for node in self.border_nodes.values():
             node.draw(screen)
 
+    def update_in_game_time(self, delta_time):
+        self.lapsed_ms += delta_time
+        ms_per_day = 1000  # 1s per day
+        if self.lapsed_ms > ms_per_day:
+            self.day += 1
+            self.update_day()
+            self.lapsed_ms -= ms_per_day
+
+    def update_day(self):
+        # TODO: Update more stuff daily
+        for unit in self.units:
+            unit.daily_update()
+
+    # endregion
+
     def parse_data(self):
+        # Parse province and node data from a JSON file
         print("Paring data from file...")
         data_file = open('resources/province_data.json', "r")
 
@@ -137,6 +151,7 @@ class State:
         elif i == 2:
             self.map_mode = MapMode.POLITICAL
 
+    # region 'create' functions
     def add_node(self, node: Node):
         self.border_nodes[node.id] = node
         try:
@@ -150,6 +165,11 @@ class State:
                 json.dump(data, data_file, indent=2)
         except Exception as e:
             print(f"Adding node {node.id}:{node.pos} to json file failed! {e}")
+
+    def create_unit(self, name, province) -> Unit:
+        unit = Unit(name, province)
+        self.units.append(unit)
+        return unit
 
     def create_node(self, pos):
         new_id = len(self.border_nodes)
@@ -182,6 +202,23 @@ class State:
         except Exception as e:
             print(f"Adding province {new_province.name} to json file failed! {e}")
 
+    def create_neighbour_pair(self, a: Province, b: Province):
+        a.add_neighbour(b.id)
+        b.add_neighbour(a.id)
+
+    @staticmethod
+    def generate_random_name():
+        alphabet = list(string.ascii_lowercase)
+        length = random.randint(3, 10)
+        name = ""
+        for i in range(length):
+            letter = alphabet[random.randint(0, len(alphabet) - 1)]
+            name += letter
+        name = name[0].upper() + name[1:]
+        return name
+
+    # endregion
+
     def get_node_clicked(self, pos):
         # TODO: Optimize into quadrants?
         for node in self.border_nodes.values():
@@ -196,21 +233,7 @@ class State:
                 return pro
         return None
 
-    @staticmethod
-    def generate_random_name():
-        alphabet = list(string.ascii_lowercase)
-        length = random.randint(3, 10)
-        name = ""
-        for i in range(length):
-            letter = alphabet[random.randint(0, len(alphabet) - 1)]
-            name += letter
-        name = name[0].upper() + name[1:]
-        return name
-
-    def create_neighbour_pair(self, a: Province, b: Province):
-        a.add_neighbour(b.id)
-        b.add_neighbour(a.id)
-
+    # region display things
     def show_fps(self, screen, delta_time):
         if delta_time != 0:
             font = p.font.Font("freesansbold.ttf", 24)
@@ -222,6 +245,10 @@ class State:
     def show_edit_province_buttons(self, screen):
         for button in self.buttons:
             button.draw(screen)
+
+    # endregion
+
+    # region All the getters
 
     def get_button_pressed(self, pos):
         if self.selected_province is not None:  # redundant
@@ -248,6 +275,19 @@ class State:
                 return province
         return None
 
+    def get_random_province(self) -> Union[Province, None]:
+        # Get a random province from the available provinces
+        if self.provinces:
+            random_province_id = random.choice(list(self.provinces.keys()))
+            return self.provinces[random_province_id]
+        else:
+            return None  # Return None if there are no provinces
+
+    def get_province(self, province_id):
+        return self.provinces[province_id]
+
+    # endregion
+
     def set_unit_path(self, unit: Unit, end_id: int):
         end_province = self.provinces[end_id]
         assert isinstance(end_province, Province)
@@ -259,23 +299,8 @@ class State:
             path = [self.get_province(province_id) for province_id in path_search.path]
             unit.path = path
 
-    def get_random_province(self):
-        # TODO: implement!
-        return self.provinces[0]  # hopefully this always exists
 
-    def get_province(self, province_id):
-        return self.provinces[province_id]
 
-    def update_in_game_time(self, delta_time):
-        self.lapsed_ms += delta_time
-        ms_per_day = 1000  # 1s per day
-        if self.lapsed_ms > ms_per_day:
-            self.day += 1
-            self.update_day()
-            self.lapsed_ms -= ms_per_day
 
-    def update_day(self):
-        for unit in self.units:
-            unit.daily_update()
 
 
