@@ -1,9 +1,27 @@
-import numpy as np
 from gamestate import GameState
 import matplotlib.pyplot as plt
 from matplotlib.patches import Polygon
-from unit import Unit
+
+from person import Person
+from army import Army
 from calculations import calculate_center
+
+
+def test_patriarchy():
+    king = Person("King Bob", 30)
+    while True:
+        king.daily_update()
+        if king.is_dead:
+            if king.has_heir():
+                king = king.heir
+            else:
+                print(f"{king.name} had no son :/")
+                generations = 0
+                while king.father is not None:
+                    king = king.father
+                    generations += 1
+                print(f"Generations: {generations}")
+                break
 
 
 def plot_polygon_and_farthest_point(vertices, farthest_point):
@@ -140,7 +158,7 @@ def test_distances():
 def test_pathing():
     state = GameState()
     start_province = state.get_province_by_name("Leon")
-    unit = Unit("Bob", start_province)
+    unit = Army("Bob", start_province)
     end_province = state.get_province_by_name("Gibraltar")
     state.set_unit_path(unit, end_province.id)
     print(f"Path from {start_province.name} to {end_province.name}:")
@@ -154,6 +172,7 @@ def test_set():
     # test_point_inside_polygon()
     # test_distances()
     # test_pathing()
-    test_center()
+    # test_center()
+    test_patriarchy()
     
     

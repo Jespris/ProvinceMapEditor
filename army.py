@@ -3,14 +3,19 @@ import pygame as p
 from province import Province
 
 
-class Unit:
-    def __init__(self, name: str, spawn_province: Province):
+class Army:
+    def __init__(self, name: str, spawn_province: Province, nation=None):
         # Initialize unit attributes
         self.name = name
         self.path: [Province] = []  # List to store the path of provinces
         self.movement_points = 0  # 10 per day plus maybe some modifiers from king
         self.current_province = spawn_province  # The current province the unit is in
         self.move_points_regen = 10  # Movement points regenerated per day
+        self.nation = nation
+        self.strength = 1
+
+    def set_nation(self, nation):
+        self.nation = nation
 
     def daily_update(self):  # should get called every day
         # Update unit's movement points and move along the path if available

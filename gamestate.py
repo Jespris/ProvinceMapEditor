@@ -6,12 +6,13 @@ import pygame as p
 
 from button import EditProvinceButton, NameButton, TerrainButton
 from mapmodes import MapMode
+from nation import Nation
 from node import Node
 from pathFinder import PathSearch
 from province import Province
 from terraintype import TerrainType
 from typing import Union, Optional
-from unit import Unit
+from army import Army
 
 
 def create_buttons():
@@ -48,7 +49,7 @@ class GameState:
         self.day = 0
         self.lapsed_ms = 0
         self.game_speed = 1  # TODO: implement game speed
-        self.units: [Unit] = []
+        self.units: [Army] = []
         self.is_paused = False
         self.map_mode: MapMode = MapMode.TERRAIN
         self.hide_names = True
@@ -171,8 +172,8 @@ class GameState:
         except Exception as e:
             print(f"Adding node {node.id}:{node.pos} to json file failed! {e}")
 
-    def create_unit(self, name, province) -> Unit:
-        unit = Unit(name, province)
+    def create_unit(self, name, province) -> Army:
+        unit = Army(name, province)
         self.units.append(unit)
         return unit
 
@@ -184,7 +185,7 @@ class GameState:
     def create_new_province(self, nodes_id):
         new_province = Province(len(self.provinces))
         new_province.set_name(self.generate_random_name())
-        new_province.set_border(nodes_id, self.border_nodes)
+        new_province.set_border(nodes_id)
         new_province.set_center(None, self.border_nodes)
 
         self.provinces[new_province.id] = new_province
@@ -293,7 +294,7 @@ class GameState:
 
     # endregion
 
-    def set_unit_path(self, unit: Unit, end_id: int):
+    def set_unit_path(self, unit: Army, end_id: int):
         end_province = self.provinces[end_id]
         assert isinstance(end_province, Province)
         if end_province.is_passable():
@@ -304,7 +305,15 @@ class GameState:
             path = [self.get_province(province_id) for province_id in path_search.path]
             unit.path = path
 
+    @staticmethod
+    def new_war(sender: Nation, receiver: Nation):
+        sender.at_war_with.append(receiver)
+        receiver.at_war_with.append(sender)
 
+    @staticmethod
+    def new_alliance(sender: Nation, receiver: Nation):
+        sender.alliances.append(receiver)
+        receiver.alliances.append(sender)
 
 
 

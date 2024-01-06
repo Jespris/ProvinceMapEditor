@@ -1,7 +1,7 @@
 from typing import Union
 
 from province import Province
-from unit import Unit
+from army import Army
 
 
 """
@@ -17,9 +17,9 @@ The tiles need to be able to get the following info:
 
 
 class PathSearch:
-    def __init__(self, world: {int: Province}, unit: Unit, start: int, end: int, cost_func):
+    def __init__(self, world: {int: Province}, unit: Army, start: int, end: int, cost_func):
         self.world: {int: Province} = world
-        self.unit: Unit = unit
+        self.unit: Army = unit
         self.start: int = start
         self.end: int = end
         self.cost_func = cost_func

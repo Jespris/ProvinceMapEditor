@@ -2,6 +2,7 @@ import pygame as p
 from win32api import GetSystemMetrics
 from gamestate import GameState
 from mainstate import MainState
+from testing import test_set
 
 # GLOBALS
 WIDTH = GetSystemMetrics(0)  # 1920 on PC monitor
@@ -112,5 +113,5 @@ def load_ref_image():
 
 
 if __name__ == "__main__":
-    main()
-    # test_set()
+    # main()
+    test_set()

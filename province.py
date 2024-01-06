@@ -35,7 +35,7 @@ class Province:
         self.is_selected = False
         self.development = 1
         self.info_ui_table = None
-        self.alliance = None
+        self.nation = None
         self.occupied_by = None
 
     def __eq__(self, other):
