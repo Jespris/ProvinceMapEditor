@@ -52,6 +52,7 @@ class GameState:
         self.is_paused = False
         self.map_mode: MapMode = MapMode.TERRAIN
         self.hide_names = True
+        self.developer_mode = False
 
         self.parse_data()
 
@@ -65,24 +66,28 @@ class GameState:
         if self.map_mode == MapMode.TERRAIN:
             screen.blit(ref_image, (0, 0))
 
+        selected_province = None
         for province_id, province in self.provinces.items():
             if province_id == self.selected_province:
                 province.is_selected = True
-                if self.map_mode == MapMode.TERRAIN:
-                    province.draw(screen, self.border_nodes, self.map_mode, self.hide_names)
+                selected_province = province
             else:
                 province.is_selected = False
             if self.map_mode != MapMode.TERRAIN:
                 province.draw(screen, self.border_nodes, self.map_mode, self.hide_names)
 
+        if selected_province is not None:
+            selected_province.draw(screen, self.border_nodes, self.map_mode, self.hide_names)
+
         for unit in self.units:
             unit.draw(screen, self.selected_province)
 
         # self.display_nodes(screen)
-        if self.selected_province is not None:
-            self.show_edit_province_buttons(screen)
+        if self.developer_mode:
+            if self.selected_province is not None:
+                self.show_edit_province_buttons(screen)
 
-        self.show_fps(screen, delta_time)
+            self.show_fps(screen, delta_time)
 
     def display_nodes(self, screen):
         # Draw all border nodes on the screen
@@ -134,9 +139,9 @@ class GameState:
             pro_neighbours = province_data['neighbours']
 
             province = Province(pro_id)
-            province.set_name(pro_name)
-            province.set_border(pro_border, self.border_nodes)
+            province.set_border(pro_border)
             province.set_center(pro_center, self.border_nodes)
+            province.set_name(pro_name)
             province.set_terrain(terrain)
             province.set_neighbours(pro_neighbours)
             province.set_random_dev()

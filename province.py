@@ -7,6 +7,8 @@ from terraintype import TerrainType
 import pygame as p
 from typing import Union
 
+from ui import UI_Table, TextBox, TextAlignment
+
 
 class Province:
 
@@ -30,10 +32,11 @@ class Province:
         self.terrain: Union[TerrainType, None] = None
         self.temperature: Union[int, None] = None
         self.neighbours: [int] = []
-
         self.is_selected = False
-
         self.development = 1
+        self.info_ui_table = None
+        self.alliance = None
+        self.occupied_by = None
 
     def __eq__(self, other):
         # Check if two provinces are equal
@@ -60,6 +63,11 @@ class Province:
         except Exception as e:
             print(f"Setting name ({name}) to province to json file failed! {e}")
 
+        # update the UI element in the table
+        element = self.info_ui_table.get_table_element_by_name("Attribute Province name Value")
+        assert isinstance(element, TextBox)
+        element.set_text([self.name])  # the table should now be updated?!?
+
     def set_center(self, pos, node_dict):
         # Set the center position of the province
         if pos is None:
@@ -82,11 +90,14 @@ class Province:
         else:
             self.center_pos = pos
 
-    def set_border(self, border, node_dict):
+        self.temperature = self.calculate_temp()
+        # ui table needs the center set
+        self.create_ui_table()
+
+    def set_border(self, border):
         # Set the border nodes of the province
         self.border = border
-        self.set_center(None, node_dict)
-        self.temperature = self.calculate_temp()
+        # self.set_center(None, node_dict)
 
     def set_terrain(self, terrain: TerrainType):
         # Set the terrain type of the province
@@ -105,9 +116,18 @@ class Province:
         except Exception as e:
             print(f"Setting terrain to province to json file failed! {e}")
 
+        # update the UI element in the table
+        element = self.info_ui_table.get_table_element_by_name("Attribute Terrain Value")
+        assert isinstance(element, TextBox)
+        element.set_text([self.terrain.to_string()])  # the table should now be updated?!?
+
     def set_temperature(self, temperature):
         # Set the temperature of the province
         self.temperature = temperature
+        # update the UI element in the table
+        element = self.info_ui_table.get_table_element_by_name("Attribute Temperature Value")
+        assert isinstance(element, TextBox)
+        element.set_text([str(self.temperature)])  # the table should now be updated?!?
 
     def set_neighbours(self, neighbours):
         # Set the neighbouring provinces
@@ -129,6 +149,10 @@ class Province:
             # Ensure the number is within the desired range (1-10)
             self.development = max(1, min(10, round(random_number)))
 
+        # update the UI element in the table
+        element = self.info_ui_table.get_table_element_by_name("Attribute Development Value")
+        assert isinstance(element, TextBox)
+        element.set_text([str(self.development)])  # the table should now be updated?!?
     # endregion
 
     def calculate_temp(self):
@@ -173,14 +197,16 @@ class Province:
 
         return inside
 
-
-
     # region Province drawing
+
     def draw(self, screen, node_dict, map_mode, hide_names):
         # Draw the province on the screen
         self.draw_province(screen, node_dict, map_mode)
         if not hide_names:
             self.draw_name(screen)
+        if self.is_selected:
+            # draw the table
+            self.info_ui_table.draw(screen)
 
     def draw_name(self, screen):
         # Draw the province name on the screen
@@ -274,3 +300,32 @@ class Province:
         return r, g, b
 
     # endregion
+    def create_ui_table(self):
+        from main import WIDTH, HEIGHT
+        table_width = WIDTH // 4
+        table_height = HEIGHT // 2
+        x_pos = 0
+        if self.center_pos[0] < WIDTH // 2:
+            x_pos = WIDTH - table_width
+        table_texts = [
+            ("Province name", self.name),
+            ("Terrain", "None"),
+            ("Temperature", str(self.temperature)),
+            ("Development", str(self.development)),
+            ("Owned by", "None"),
+            ("Occupied by", "None")
+        ]
+
+        ui_table = UI_Table((x_pos, HEIGHT // 2), (table_width, table_height), f"ProvinceTable", len(table_texts), 2)
+        ps = (0, 0)
+        for index, (title, value) in enumerate(table_texts):
+            # positions and sizes automatically get set by table
+            title_ui_element = TextBox(ps, ps, f"Attribute {title}", 24, bold=False, alignment=TextAlignment.LEFT)
+            title_ui_element.set_text([title])
+            value_ui_element = TextBox(ps, ps, f"Attribute {title} Value", 24, bold=True, alignment=TextAlignment.RIGHT)
+            value_ui_element.set_text([value])
+
+            ui_table.set_table_element(index, 0, title_ui_element)
+            ui_table.set_table_element(index, 1, value_ui_element)
+
+        self.info_ui_table = ui_table
