@@ -37,6 +37,9 @@ def create_buttons():
     mountain_button = TerrainButton((620, 20), "Mountain", TerrainType.MOUNTAIN)
     buttons.append(mountain_button)
 
+    imp_button = TerrainButton((740, 20), "Impassable", TerrainType.IMPASSABLE_MOUNTAIN)
+    buttons.append(imp_button)
+
     return buttons
 
 
@@ -56,7 +59,7 @@ class GameState:
         self.is_paused = False
         self.map_mode: MapMode = MapMode.TERRAIN
         self.hide_names = True
-        self.developer_mode = True
+        self.developer_mode = False
         self.game_clock_ui: UI_Table = self.create_ui_clock()
         self.fps_counter: TextBox = self.create_fps_counter()
         self.parse_data()
@@ -70,6 +73,7 @@ class GameState:
         screen.fill(p.Color("black"))
         if self.map_mode == MapMode.TERRAIN:
             screen.blit(ref_image, (0, 0))
+            # pass
 
         selected_province = None
         for province_id, province in self.provinces.items():
@@ -251,7 +255,8 @@ class GameState:
         except Exception as e:
             print(f"Adding province {new_province.name} to json file failed! {e}")
 
-    def create_neighbour_pair(self, a: Province, b: Province):
+    @staticmethod
+    def create_neighbour_pair(a: Province, b: Province):
         a.add_neighbour(b.id)
         b.add_neighbour(a.id)
 

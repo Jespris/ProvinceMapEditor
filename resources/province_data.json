@@ -5493,7 +5493,7 @@
         336,
         335
       ],
-      "terrain": "MOUNTAIN",
+      "terrain": "IMPASSABLE_MOUNTAIN",
       "neighbours": [
         87,
         86,
@@ -6010,7 +6010,7 @@
         106,
         107
       ],
-      "terrain": "MOUNTAIN",
+      "terrain": "IMPASSABLE_MOUNTAIN",
       "neighbours": [
         105,
         57,
@@ -6424,7 +6424,7 @@
         437,
         438
       ],
-      "terrain": "MOUNTAIN",
+      "terrain": "IMPASSABLE_MOUNTAIN",
       "neighbours": [
         120,
         119,
@@ -6555,7 +6555,8 @@
         54,
         55,
         56,
-        57
+        57,
+        106
       ]
     },
     {
@@ -6623,7 +6624,8 @@
         110,
         107,
         104,
-        103
+        103,
+        105
       ]
     },
     {

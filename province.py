@@ -13,14 +13,15 @@ from ui import UI_Table, TextBox, TextAlignment
 class Province:
 
     # Constants
-    BORDER_THICKNESS = 4
+    BORDER_THICKNESS = 2
     HIGHLIGHT_COLOR = p.Color("yellow")
     TERRAIN_COLOR = {
         TerrainType.FLAT: p.Color("darkseagreen"),
         TerrainType.HILLS: p.Color("wheat"),
         TerrainType.MOUNTAIN: p.Color("burlywood4"),
         TerrainType.OCEAN: p.Color("cadetblue4"),
-        TerrainType.SEA: p.Color("cadetblue3")
+        TerrainType.SEA: p.Color("cadetblue3"),
+        TerrainType.IMPASSABLE_MOUNTAIN: p.Color("darkgray")
     }
 
     def __init__(self, province_id):
@@ -33,7 +34,7 @@ class Province:
         self.temperature: Union[int, None] = None
         self.neighbours: [int] = []
         self.is_selected = False
-        self.development = 1
+        self.development = 0
         self.info_ui_table = None
         self.nation: Union[Nation, None] = None
         self.occupied_by: Union[Nation, None] = None
@@ -142,18 +143,19 @@ class Province:
     def set_random_dev(self):
         # Set a random development value for non-water provinces
         if not self.terrain.is_water():
-            # Mean around 3, standard deviation determines the spread
-            mu = 3
-            sigma = 1.5
+            if self.terrain != TerrainType.IMPASSABLE_MOUNTAIN:
+                # Mean around 3, standard deviation determines the spread
+                mu = 3
+                sigma = 1.5
 
-            # Generate a random number with a normal distribution
-            random_number = random.normalvariate(mu, sigma)
-            # mountains get a penalty of 2
-            if self.terrain == TerrainType.MOUNTAIN:
-                random_number -= 2
+                # Generate a random number with a normal distribution
+                random_number = random.normalvariate(mu, sigma)
+                # mountains get a penalty of 2
+                if self.terrain == TerrainType.MOUNTAIN:
+                    random_number -= 2
 
-            # Ensure the number is within the desired range (1-10)
-            self.development = max(1, min(10, round(random_number)))
+                # Ensure the number is within the desired range (1-10)
+                self.development = max(1, min(10, round(random_number)))
 
         # update the UI element in the table
         element = self.info_ui_table.get_table_element_by_name("Attribute Development Value")
@@ -218,7 +220,10 @@ class Province:
         # Draw the province name on the screen
         text_size = 18
         font = p.font.Font('freesansbold.ttf', text_size)
-        text = font.render(self.name, False, p.Color("black"))
+        color =  p.Color("black")
+        if self.terrain == TerrainType.IMPASSABLE_MOUNTAIN:
+            color = p.Color("white")
+        text = font.render(self.name, False, color)
         text_rect = text.get_rect()
         text_rect.center = self.center_pos
         screen.blit(text, text_rect)
@@ -248,8 +253,7 @@ class Province:
     # region Pathing
     def is_passable(self):
         # Check if the province is passable
-        # TODO: implement impassable terrain?
-        return True
+        return self.terrain.get_movement_speed() > 0
 
     def cost_to_enter(self, cost_so_far: int, source_terrain: TerrainType, unit):
         # Calculate the cost to enter the province for a unit
@@ -287,7 +291,7 @@ class Province:
                 return self.lerp_dev_color()
             elif map_mode.is_political():
                 if self.nation is None:
-                    # print(f"No nation set for province {self.name}, id: {self.id}")
+                    print(f"No nation set for province {self.name}, id: {self.id}")
                     return default
                 else:
                     return self.nation.color
@@ -299,6 +303,8 @@ class Province:
         start_color = (255, 0, 0)  # Red
         end_color = (0, 255, 0)    # Green
         t = self.development / 10.0
+        if self.development == 0:
+            return p.Color("black")
         return self.lerp_color(start_color, end_color, t)
 
     @staticmethod

@@ -61,34 +61,35 @@ class PathSearch:
                 assert isinstance(neighbour_id, int)
                 neighbour = self.world[neighbour_id]
                 assert isinstance(neighbour, Province)
-                if closed_set.__contains__(neighbour_id):
-                    continue  # ignore this completed neighbour
+                if neighbour.is_passable():  # skip all impassable terrain
+                    if closed_set.__contains__(neighbour_id):
+                        continue  # ignore this completed neighbour
 
-                total_pathfinding_cost_to_neighbour = (
-                    neighbour.cost_to_enter(
-                        g_score[current],
-                        self.world[current].terrain,
-                        self.unit
+                    total_pathfinding_cost_to_neighbour = (
+                        neighbour.cost_to_enter(
+                            g_score[current],
+                            self.world[current].terrain,
+                            self.unit
+                        )
                     )
-                )
 
-                if total_pathfinding_cost_to_neighbour < 0:
-                    # impassable terrain
-                    continue
+                    if total_pathfinding_cost_to_neighbour < 0:
+                        # impassable terrain
+                        continue
 
-                tgs = total_pathfinding_cost_to_neighbour
+                    tgs = total_pathfinding_cost_to_neighbour
 
-                if open_set.__contains__(neighbour_id) and tgs >= g_score[neighbour_id]:
-                    continue  # skip, shorter path already found
+                    if open_set.__contains__(neighbour_id) and tgs >= g_score[neighbour_id]:
+                        continue  # skip, shorter path already found
 
-                came_from[neighbour_id] = current
-                g_score[neighbour_id] = tgs
-                f_score[neighbour_id] = tgs + self.cost_func(neighbour, self.world[self.end])
+                    came_from[neighbour_id] = current
+                    g_score[neighbour_id] = tgs
+                    f_score[neighbour_id] = tgs + self.cost_func(neighbour, self.world[self.end])
 
-                if neighbour_id not in open_set:
-                    open_set.append(neighbour_id)
+                    if neighbour_id not in open_set:
+                        open_set.append(neighbour_id)
 
-                open_set_dict[neighbour_id] = f_score[neighbour_id]
+                    open_set_dict[neighbour_id] = f_score[neighbour_id]
 
     def reconstruct_path(self, came_from: {int: int}, current: int):
         # at this point, current is the goal

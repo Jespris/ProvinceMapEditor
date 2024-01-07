@@ -31,7 +31,7 @@ def main():
         delta_time = clock.get_rawtime()
         p.display.flip()
 
-    p.image.save(screen, 'output/CreatedGame.png')
+    p.image.save(screen, 'output/LastTickCapture.png')
     print("Goodbye!")
 
 
@@ -97,10 +97,8 @@ def handle_mouse_button_down(event, state, main_state):
             if state.get_button_pressed(pos):
                 return
         elif event.button == 3:
-            clicked_province = state.get_province_clicked(pos)
-            if clicked_province is not None and clicked_province != state.selected_province:
-                unit = state.create_nation("Bob", state.get_province(state.selected_province))
-                state.set_unit_path(unit, clicked_province.id)
+            # TODO: do something on right click
+            return
 
     if event.button == 1:
         province = state.get_province_clicked(pos)
@@ -118,7 +116,7 @@ def handle_mouse_button_down(event, state, main_state):
         if province is not None:
             if state.selected_province is not None and state.selected_province == province.id:
                 state.selected_province = None
-            else:
+            elif province.is_passable():
                 state.selected_province = province.id
 
 
