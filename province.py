@@ -133,6 +133,12 @@ class Province:
         # Set the neighbouring provinces
         self.neighbours = neighbours
 
+    def set_nation(self, nation):
+        self.nation = nation
+        element = self.info_ui_table.get_table_element_by_name("Attribute Owned by Value")
+        assert isinstance(element, TextBox)
+        element.set_text([self.nation.name])  # the table should now be updated?!?
+
     def set_random_dev(self):
         # Set a random development value for non-water provinces
         if not self.terrain.is_water():
@@ -281,7 +287,7 @@ class Province:
                 return self.lerp_dev_color()
             elif map_mode.is_political():
                 if self.nation is None:
-                    print(f"No nation set for province {self.name}, id: {self.id}")
+                    # print(f"No nation set for province {self.name}, id: {self.id}")
                     return default
                 else:
                     return self.nation.color

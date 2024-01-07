@@ -49,7 +49,7 @@ class GameState:
         self.buttons: [EditProvinceButton] = create_buttons()
         self.day = 1
         self.month = 1
-        self.year = 789
+        self.year = 1052
         self.lapsed_ms = 0
         self.game_speed = 5  # TODO: implement game speed
         self.nations: {str: Nation} = {}
@@ -88,7 +88,7 @@ class GameState:
 
         nation: Nation
         for nation in self.nations.values():
-            nation.draw_assets(screen)
+            nation.draw(screen, self.map_mode)
 
         # self.display_nodes(screen)
         if self.developer_mode:
@@ -182,11 +182,12 @@ class GameState:
             nation = Nation(nation_name, province_ids[0])
             for p_id in province_ids:
                 # update province nationalities
-                self.provinces[p_id].nation = nation
+                self.provinces[p_id].set_nation(nation)
                 # add id to list in nation
                 if p_id != nation.capital:
                     nation.add_province(p_id)
             self.nations[nation_name] = nation
+            nation.update_name_text_box(self.provinces, self.border_nodes)
 
         print(f"Nations: {[nation.name for nation in self.nations.values()]}")
         print("Parsing complete!")
