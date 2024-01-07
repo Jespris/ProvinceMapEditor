@@ -13,7 +13,7 @@ from province import Province
 from terraintype import TerrainType
 from typing import Union, Optional
 from army import Army
-from ui import UI_Table, TextBox
+from ui import UI_Table, TextBox, TextAlignment
 
 
 def create_buttons():
@@ -59,9 +59,10 @@ class GameState:
         self.is_paused = False
         self.map_mode: MapMode = MapMode.TERRAIN
         self.hide_names = True
-        self.developer_mode = False
+        self.developer_mode = True
         self.game_clock_ui: UI_Table = self.create_ui_clock()
         self.fps_counter: TextBox = self.create_fps_counter()
+        self.game_log: TextBox = self.create_game_log()
         self.parse_data()
 
     # region Game state updaters
@@ -103,6 +104,7 @@ class GameState:
 
         self.update_clock()
         self.game_clock_ui.draw(screen)
+        self.game_log.draw(screen)
 
     def display_nodes(self, screen):
         # Draw all border nodes on the screen
@@ -135,11 +137,13 @@ class GameState:
         if self.month == 13:
             self.month = 1
             self.year += 1
-            log_message(f"YEAR {self.year}:")
+            log_message(f"YEAR {self.year}")
 
         nation: Nation
         for nation in self.nations.values():
             nation.monthly_update()
+
+        self.update_game_log()
     # endregion
 
     def parse_data(self):
@@ -400,7 +404,32 @@ class GameState:
 
     @staticmethod
     def create_fps_counter() -> TextBox:
-        return TextBox((0, 0), (150, 30), "FPS Counter", 24, True, box_thickness=0, transparent=True, black_text=False)
+        from main import WIDTH
+        size = (150, 30)
+        return TextBox((WIDTH - size[0], 0), size, "FPS Counter", 24, True, box_thickness=0, transparent=True, black_text=False)
+
+    @staticmethod
+    def create_game_log():
+        from main import HEIGHT
+        size = (400, HEIGHT // 2)
+        return TextBox((0, HEIGHT // 4), size, "Game Log", 14, alignment=TextAlignment.LEFT,transparent=True, black_text=False, box_thickness=0)
+
+    def update_game_log(self):
+        nr_lines = 12
+        lines = []
+        # Open the file in read mode
+        with open('output/game_log.txt', 'r') as file:
+            # Read the first 8 lines
+            for i in range(nr_lines):
+                line = file.readline().strip()
+                if not line:
+                    break
+                lines.append(line)
+                lines.append(" ")
+
+        # print(lines)
+        self.game_log.set_text(lines)
+
 
 
 

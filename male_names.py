@@ -1,4 +1,5 @@
 import random
+from unidecode import unidecode
 
 spanish_names = [
     "Alejandro", "Mateo", "Javier", "Carlos", "Miguel", "Luis", "Diego", "Santiago",
@@ -36,6 +37,7 @@ italian_names = [
 
 # Combine all the lists
 all_names = spanish_names + north_african_names + french_names + italian_names
+all_names = [unidecode(s) for s in all_names]
 
 # Example usage
 print("Total number of names:", len(all_names))

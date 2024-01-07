@@ -16,5 +16,5 @@ def log_message(message):
 
 
 def reset_log():
-    with open('your_file.txt', 'w'):
+    with open('output/game_log.txt', 'w'):
         pass
