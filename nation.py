@@ -1,5 +1,6 @@
 import random
 
+import male_names
 from mapmodes import MapMode
 from person import Person
 from army import Army
@@ -16,7 +17,7 @@ class Nation:
         self.alliances: [] = []  # list of other nations
         self.color = self.get_random_color()
         self.armies: [Army] = []
-        self.king: Person = Person(f"King of {self.name}", random.randint(15, 60))
+        self.king: Person = self.get_new_king()
 
     def update_name_text_box(self, province_dict, node_dict):
         # get the average position of all nodes in the nation and blit the name there
@@ -47,7 +48,7 @@ class Nation:
     def monthly_update(self):
         self.king.monthly_update()
         if self.king.is_dead:
-            self.king = Person(f"King of {self.name}", random.randint(0, self.king.age))
+            self.king = self.get_new_king()
 
     def spawn_army(self):
         pass
@@ -70,4 +71,9 @@ class Nation:
                 y += node.pos[1]
 
         return x // total_nodes, y // total_nodes
+
+    def get_new_king(self):
+        name = male_names.get_random()
+        personality = male_names.get_personality()
+        return Person(f"King {name} 'the {personality}' of {self.name}", random.randint(0, 50))
 
