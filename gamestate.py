@@ -120,7 +120,6 @@ class GameState:
             self.update_month()
             self.day = 1
 
-
     def update_month(self):
         self.month += 1
         if self.month == 13:
@@ -257,6 +256,7 @@ class GameState:
         # TODO: Optimize this somehow?
         for pro in self.provinces.values():
             if pro.point_inside_province(pos, self.border_nodes):
+                print(f"ID of clicked province: {pro.id}")
                 return pro
         return None
 
