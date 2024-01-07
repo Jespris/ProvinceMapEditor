@@ -1,7 +1,7 @@
 import json
 import random
-
 import calculations
+from nation import Nation
 from mapmodes import MapMode
 from terraintype import TerrainType
 import pygame as p
@@ -35,8 +35,8 @@ class Province:
         self.is_selected = False
         self.development = 1
         self.info_ui_table = None
-        self.nation = None
-        self.occupied_by = None
+        self.nation: Union[Nation, None] = None
+        self.occupied_by: Union[Nation, None] = None
 
     def __eq__(self, other):
         # Check if two provinces are equal
@@ -279,8 +279,12 @@ class Province:
         if not self.terrain.is_water():
             if map_mode.is_dev():
                 return self.lerp_dev_color()
-            elif map_mode == MapMode.POLITICAL:
-                return default  # TODO: implement political map mode
+            elif map_mode.is_political():
+                if self.nation is None:
+                    print(f"No nation set for province {self.name}, id: {self.id}")
+                    return default
+                else:
+                    return self.nation.color
 
         return default
 

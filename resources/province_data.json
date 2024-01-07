@@ -6482,43 +6482,146 @@
   ],
   "nations": [
     {
-      "Portugal": [19, 18, 13, 9, 10, 14, 20]
+      "name": "Portugal",
+      "province_list": [
+        19,
+        18,
+        13,
+        9,
+        10,
+        14,
+        20
+      ]
     },
     {
-      "Alentejo": [27, 26, 21]
+      "name": "Alentejo",
+      "province_list": [
+        27,
+        26,
+        21
+      ]
     },
     {
-      "Galicia": [0, 1, 5, 6]
+      "name": "Galicia",
+      "province_list": [
+        0,
+        1,
+        5,
+        6
+      ]
     },
     {
-      "Leon": [7, 2, 3, 8, 12, 11, 15, 16, 22]
+      "name": "Leon",
+      "province_list": [
+        7,
+        2,
+        3,
+        8,
+        12,
+        11,
+        15,
+        16,
+        22
+      ]
     },
     {
-      "Castilla": [35, 17, 36, 41, 40, 39, 24, 4]
+      "name": "Castilla",
+      "province_list": [
+        35,
+        17,
+        36,
+        41,
+        40,
+        39,
+        24,
+        4
+      ]
     },
     {
-      "Navarra": [47]
+      "name": "Navarra",
+      "province_list": [
+        47
+      ]
     },
     {
-      "Aragon": [51, 53, 46, 45, 50, 48, 49, 52, 54, 55, 56, 57]
+      "name": "Aragon",
+      "province_list": [
+        51,
+        53,
+        46,
+        45,
+        50,
+        48,
+        49,
+        52,
+        54,
+        55,
+        56,
+        57
+      ]
     },
     {
-      "Andalusia": [30, 28, 29, 23, 34, 31, 37, 42, 44, 32]
+      "name": "Andalusia",
+      "province_list": [
+        30,
+        28,
+        29,
+        23,
+        34,
+        31,
+        37,
+        42,
+        44,
+        32
+      ]
     },
     {
-      "Granada": [38, 33, 43]
+      "name": "Granada",
+      "province_list": [
+        38,
+        33,
+        43
+      ]
     },
     {
-      "Francia": [108, 97, 96, 98, 99, 109, 118]
+      "name": "Francia",
+      "province_list": [
+        108,
+        97,
+        96,
+        98,
+        99,
+        109,
+        118
+      ]
     },
     {
-      "Gascony": [101, 100, 95, 102]
+      "name": "Gascony",
+      "province_list": [
+        101,
+        100,
+        95,
+        102
+      ]
     },
     {
-      "Provenza": [116, 123, 113]
+      "name": "Provenza",
+      "province_list": [
+        116,
+        123,
+        113
+      ]
     },
     {
-      "Languedoc": [111, 112, 110, 107, 104, 103]
+      "name": "Languedoc",
+      "province_list": [
+        111,
+        112,
+        110,
+        107,
+        104,
+        103
+      ]
     }
   ]
 }

@@ -52,7 +52,7 @@ class GameState:
         self.year = 789
         self.lapsed_ms = 0
         self.game_speed = 5  # TODO: implement game speed
-        self.units: [Army] = []
+        self.nations: {str: Nation} = {}
         self.is_paused = False
         self.map_mode: MapMode = MapMode.TERRAIN
         self.hide_names = True
@@ -78,14 +78,17 @@ class GameState:
                 selected_province = province
             else:
                 province.is_selected = False
+            # only the terrain map mode has a static image displayed
             if self.map_mode != MapMode.TERRAIN:
                 province.draw(screen, self.border_nodes, self.map_mode, self.hide_names)
 
+        # make sure the selected province is drawn
         if selected_province is not None:
             selected_province.draw(screen, self.border_nodes, self.map_mode, self.hide_names)
 
-        for unit in self.units:
-            unit.draw(screen, self.selected_province)
+        nation: Nation
+        for nation in self.nations.values():
+            nation.draw_assets(screen)
 
         # self.display_nodes(screen)
         if self.developer_mode:
@@ -120,14 +123,18 @@ class GameState:
             self.update_month()
             self.day = 1
 
+        for nation in self.nations.values():
+            nation.daily_update()
+
     def update_month(self):
         self.month += 1
         if self.month == 13:
             self.month = 1
             self.year += 1
 
-        for unit in self.units:
-            unit.monthly_update()
+        nation: Nation
+        for nation in self.nations.values():
+            nation.monthly_update()
     # endregion
 
     def parse_data(self):
@@ -167,6 +174,21 @@ class GameState:
             province.set_neighbours(pro_neighbours)
             province.set_random_dev()
             self.provinces[province.id] = province
+
+        for nation_data in data['nations']:
+            # capital is first province id in list
+            nation_name = nation_data['name']
+            province_ids = nation_data['province_list']
+            nation = Nation(nation_name, province_ids[0])
+            for p_id in province_ids:
+                # update province nationalities
+                self.provinces[p_id].nation = nation
+                # add id to list in nation
+                if p_id != nation.capital:
+                    nation.add_province(p_id)
+            self.nations[nation_name] = nation
+
+        print(f"Nations: {[nation.name for nation in self.nations.values()]}")
         print("Parsing complete!")
 
     def set_map_mode(self, i: int):
@@ -174,7 +196,7 @@ class GameState:
             self.map_mode = MapMode.TERRAIN
         elif i == 2:
             self.map_mode = MapMode.DEVELOPMENT
-        elif i == 2:
+        elif i == 3:
             self.map_mode = MapMode.POLITICAL
 
     # region 'create' functions
@@ -192,10 +214,10 @@ class GameState:
         except Exception as e:
             print(f"Adding node {node.id}:{node.pos} to json file failed! {e}")
 
-    def create_unit(self, name, province) -> Army:
-        unit = Army(name, province)
-        self.units.append(unit)
-        return unit
+    def create_nation(self, name, province) -> Nation:
+        nation = Nation(name, province.id)
+        self.nations[name] = nation
+        return nation
 
     def create_node(self, pos):
         new_id = len(self.border_nodes)

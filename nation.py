@@ -1,5 +1,4 @@
 import random
-
 from person import Person
 from army import Army
 
@@ -19,7 +18,12 @@ class Nation:
         self.provinces.append(province_id)
 
     def daily_update(self):
+        pass
+
+    def monthly_update(self):
         self.king.monthly_update()
+        if self.king.is_dead:
+            self.king = Person(f"King of {self.name}", random.randint(0, self.king.age))
 
     def spawn_army(self):
         pass
@@ -30,4 +34,7 @@ class Nation:
         g = random.randint(0, 255)
         b = random.randint(0, 255)
         return r, g, b
+
+    def draw_assets(self, screen):
+        pass
 

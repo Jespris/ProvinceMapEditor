@@ -70,6 +70,7 @@ def handle_key_down(event, state, main_state):
         main_state.creating_neighbours = True
         main_state.first_nei = None
     elif event.key in (p.K_1, p.K_2, p.K_3):
+        print(f"Number key pressed: {int(event.unicode)}")
         state.set_map_mode(int(event.unicode))
     elif event.key == p.K_h:
         state.hide_names = not state.hide_names
@@ -98,7 +99,7 @@ def handle_mouse_button_down(event, state, main_state):
         elif event.button == 3:
             clicked_province = state.get_province_clicked(pos)
             if clicked_province is not None and clicked_province != state.selected_province:
-                unit = state.create_unit("Bob", state.get_province(state.selected_province))
+                unit = state.create_nation("Bob", state.get_province(state.selected_province))
                 state.set_unit_path(unit, clicked_province.id)
 
     if event.button == 1:

@@ -1,13 +1,12 @@
 import math
 import pygame as p
-from province import Province
 
 
 class Army:
-    def __init__(self, name: str, spawn_province: Province, nation=None):
+    def __init__(self, name: str, spawn_province, nation=None):
         # Initialize unit attributes
         self.name = name
-        self.path: [Province] = []  # List to store the path of provinces
+        self.path = []  # List to store the path of provinces
         self.movement_points = 0  # 10 per day plus maybe some modifiers from king
         self.current_province = spawn_province  # The current province the unit is in
         self.move_points_regen = 10  # Movement points regenerated per day
@@ -47,12 +46,12 @@ class Army:
         # Check if the unit has a path to follow
         return self.path is not None
 
-    def get_next_province(self) -> Province:
+    def get_next_province(self):
         # Get the next province in the unit's path
         assert self.has_path()
         return self.path[0]
 
-    def cost_to_enter_province(self, province: Province, cost_so_far: int):
+    def cost_to_enter_province(self, province, cost_so_far: int):
         # Calculate the cost to enter a province based on the unit's movement and path
         distance = self.distance(province.center_pos)
         base_days_to_enter_province = math.ceil(self.movement_cost_to_enter_province(province) / self.move_points_regen * distance)
@@ -91,7 +90,5 @@ class Army:
         for i in range(len(self.path) - 1):
             start = self.path[i]
             end = self.path[i + 1]
-            assert isinstance(start, Province)
-            assert isinstance(end, Province)
             p.draw.line(screen, p.Color("black"), start.center_pos, end.center_pos, 8)
     # endregion

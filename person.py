@@ -19,7 +19,6 @@ class Person:
 
     def have_birthday(self):
         self.age += 1
-        self.check_if_dead()
 
     def die(self):
         print(f"{self.name} died at age {self.age}")
@@ -34,6 +33,7 @@ class Person:
         if self.months_until_birthday <= 0:
             self.have_birthday()
             self.months_until_birthday = 12
+        self.check_if_dead()
 
     def check_if_dead(self):
         if random.randint(1, self.death_risk_function()) == 1:
@@ -45,7 +45,7 @@ class Person:
         # at age 60 should return 10
         # age 70 -> 5
         # age 80 -> 2
-        if self.age <= 80:
-            return int(0.02 * (self.age - 90) ** 2 + 2)
-        return 2
+        if self.age <= 90:
+            return int(0.02 * (self.age - 90) ** 2 + 2) * 12
+        return 1
 

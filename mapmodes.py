@@ -10,3 +10,8 @@ class MapMode(Enum):
         if self == self.DEVELOPMENT:
             return True
         return False
+
+    def is_political(self):
+        if self == self.POLITICAL:
+            return True
+        return False
