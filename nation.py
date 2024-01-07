@@ -19,7 +19,7 @@ class Nation:
         self.provinces.append(province_id)
 
     def daily_update(self):
-        self.king.daily_update()
+        self.king.monthly_update()
 
     def spawn_army(self):
         pass

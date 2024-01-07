@@ -8,20 +8,10 @@ from calculations import calculate_center
 
 
 def test_patriarchy():
-    king = Person("King Bob", 30)
-    while True:
-        king.daily_update()
-        if king.is_dead:
-            if king.has_heir():
-                king = king.heir
-            else:
-                print(f"{king.name} had no son :/")
-                generations = 0
-                while king.father is not None:
-                    king = king.father
-                    generations += 1
-                print(f"Generations: {generations}")
-                break
+    for i in range(1, 10):
+        king = Person(f"King Bob {'I'*i}", 30)
+        while not king.is_dead:
+            king.monthly_update()
 
 
 def plot_polygon_and_farthest_point(vertices, farthest_point):

@@ -13,6 +13,7 @@ from province import Province
 from terraintype import TerrainType
 from typing import Union, Optional
 from army import Army
+from ui import UI_Table, TextBox
 
 
 def create_buttons():
@@ -46,15 +47,18 @@ class GameState:
         self.provinces: {int: Province} = {}
         self.selected_province: Union[int, None] = None
         self.buttons: [EditProvinceButton] = create_buttons()
-        self.day = 0
+        self.day = 1
+        self.month = 1
+        self.year = 789
         self.lapsed_ms = 0
-        self.game_speed = 1  # TODO: implement game speed
+        self.game_speed = 5  # TODO: implement game speed
         self.units: [Army] = []
         self.is_paused = False
         self.map_mode: MapMode = MapMode.TERRAIN
         self.hide_names = True
-        self.developer_mode = False
-
+        self.developer_mode = True
+        self.game_clock_ui: UI_Table = self.create_ui_clock()
+        self.fps_counter: TextBox = self.create_fps_counter()
         self.parse_data()
 
     # region Game state updaters
@@ -90,24 +94,41 @@ class GameState:
 
             self.show_fps(screen, delta_time)
 
+        self.update_clock()
+        self.game_clock_ui.draw(screen)
+
     def display_nodes(self, screen):
         # Draw all border nodes on the screen
         for node in self.border_nodes.values():
             node.draw(screen)
 
     def update_in_game_time(self, delta_time):
-        self.lapsed_ms += delta_time
-        ms_per_day = 1000  # 1s per day
-        if self.lapsed_ms > ms_per_day:
-            self.day += 1
+        if self.game_speed == 5:
+            # Go as fast as possible on fastest speed, update every tick
             self.update_day()
-            self.lapsed_ms -= ms_per_day
+        else:
+            self.lapsed_ms += delta_time
+            ms_per_day = 100 // self.game_speed  # 10 days per second on 1x speed
+            if self.lapsed_ms > ms_per_day:
+                self.update_day()
+                self.lapsed_ms -= ms_per_day
 
     def update_day(self):
         # TODO: Update more stuff daily
-        for unit in self.units:
-            unit.daily_update()
+        self.day += 1
+        if self.day == 30:
+            self.update_month()
+            self.day = 1
 
+
+    def update_month(self):
+        self.month += 1
+        if self.month == 13:
+            self.month = 1
+            self.year += 1
+
+        for unit in self.units:
+            unit.monthly_update()
     # endregion
 
     def parse_data(self):
@@ -242,11 +263,8 @@ class GameState:
     # region display things
     def show_fps(self, screen, delta_time):
         if delta_time != 0:
-            font = p.font.Font("freesansbold.ttf", 24)
-            text = font.render(f"FPS: {1000 // delta_time}", True, p.Color("red"))
-            text_rect = text.get_rect()
-            text_rect.topleft = (0, 0)
-            screen.blit(text, text_rect)
+            self.fps_counter.set_text(["FPS: " + str(1000 // delta_time)])
+            self.fps_counter.draw(screen)
 
     def show_edit_province_buttons(self, screen):
         for button in self.buttons:
@@ -314,6 +332,47 @@ class GameState:
     def new_alliance(sender: Nation, receiver: Nation):
         sender.alliances.append(receiver)
         receiver.alliances.append(sender)
+
+    @staticmethod
+    def create_ui_clock() -> UI_Table:
+        from main import WIDTH, HEIGHT
+        table_width = WIDTH // 4
+        table_height = HEIGHT // 20
+        x = WIDTH // 2 - table_width // 2  # ->>>
+        y = HEIGHT - table_height
+        z = (0, 0)
+        game_clock = TextBox(z, z, "Game Clock", 32, False)
+        game_speed = TextBox(z, z, "Game Speed", 32, True)
+        ui_table = UI_Table((x, y), (table_width, table_height), "Clock Table", 1, 2)
+        ui_table.set_table_element(0, 0, game_speed)
+        ui_table.set_table_element(0, 1, game_clock)
+        return ui_table
+
+    def update_clock(self):
+        month = {1: "JAN", 2: "FEB", 3: "MAR", 4: "APR", 5: "MAY", 6: "JUN",
+                 7: "JUL", 8: "AUG", 9: "SEP", 10: "OCT", 11: "NOV", 12: "DEC"}
+
+        day = str(self.day)
+        if self.day < 10:
+            day = f"0{day}"
+
+        date_string = f"{day} {month[self.month]} {str(self.year)}"
+        speed_string = "-" + ">" * self.game_speed
+        if self.is_paused:
+            speed_string = "||"
+
+        clock = self.game_clock_ui.get_table_element_by_name("Game Clock")
+        assert isinstance(clock, TextBox)
+        clock.set_text([date_string])
+
+        speed = self.game_clock_ui.get_table_element_by_name("Game Speed")
+        assert isinstance(speed, TextBox)
+        speed.set_text([speed_string])
+
+    @staticmethod
+    def create_fps_counter() -> TextBox:
+        return TextBox((0, 0), (150, 30), "FPS Counter", 24, True, box_thickness=0, transparent=True, black_text=False)
+
 
 
 

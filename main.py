@@ -7,7 +7,7 @@ from testing import test_set
 # GLOBALS
 WIDTH = GetSystemMetrics(0)  # 1920 on PC monitor
 HEIGHT = GetSystemMetrics(1)  # 1080
-FPS = 30
+FPS = 120
 
 
 def main():
@@ -73,6 +73,19 @@ def handle_key_down(event, state, main_state):
         state.set_map_mode(int(event.unicode))
     elif event.key == p.K_h:
         state.hide_names = not state.hide_names
+    elif event.key == p.K_COMMA:
+        # decrease game speed
+        state.game_speed -= 1
+        if state.game_speed <= 0:
+            state.game_speed = 0
+            state.is_paused = True
+    elif event.key == p.K_PERIOD:
+        # increase game speed
+        state.game_speed += 1
+        state.is_paused = False
+        if state.game_speed >= 5:
+            # max at 5
+            state.game_speed = 5
 
 
 def handle_mouse_button_down(event, state, main_state):
@@ -113,5 +126,5 @@ def load_ref_image():
 
 
 if __name__ == "__main__":
-    # main()
-    test_set()
+    main()
+    # test_set()
