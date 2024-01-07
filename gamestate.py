@@ -3,7 +3,7 @@ import math
 import random
 import string
 import pygame as p
-
+from log_handler import log_message
 from button import EditProvinceButton, NameButton, TerrainButton
 from mapmodes import MapMode
 from nation import Nation
@@ -135,6 +135,7 @@ class GameState:
         if self.month == 13:
             self.month = 1
             self.year += 1
+            log_message(f"YEAR {self.year}:")
 
         nation: Nation
         for nation in self.nations.values():

@@ -3,6 +3,8 @@ from win32api import GetSystemMetrics
 from gamestate import GameState
 from mainstate import MainState
 from testing import test_set
+from log_handler import reset_log, log_message
+from datetime import datetime
 
 # GLOBALS
 WIDTH = GetSystemMetrics(0)  # 1920 on PC monitor
@@ -12,6 +14,8 @@ FPS = 120
 
 def main():
     print("Hello!")
+    reset_log()
+    log_message(f"New game started at {datetime.now().strftime('%d-%m-%Y %H:%M:%S')}")
     p.init()
     screen = p.display.set_mode((WIDTH, HEIGHT))
     p.display.set_caption("Province Map Editor")
@@ -32,6 +36,7 @@ def main():
         p.display.flip()
 
     p.image.save(screen, 'output/LastTickCapture.png')
+    log_message(f"Game ended at {datetime.now().strftime('%d-%m-%Y %H:%M:%S')}")
     print("Goodbye!")
 
 

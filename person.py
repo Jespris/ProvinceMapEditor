@@ -1,6 +1,6 @@
 import random
 from typing import Union
-
+from log_handler import log_message
 
 class Person:
     def __init__(self, name: str, age: int):
@@ -21,12 +21,8 @@ class Person:
         self.age += 1
 
     def die(self):
-        print(f"{self.name} died at age {self.age}")
+        log_message(f"{self.name} died at age {self.age}")
         self.is_dead = True
-
-    def get_random_name(self):
-        # TODO: get random name
-        return f"{self.name}'s son nr {len(self.sons) + 1}"
 
     def monthly_update(self):
         self.months_until_birthday -= 1

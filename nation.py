@@ -1,6 +1,7 @@
 import random
 
 import male_names
+from log_handler import log_message
 from mapmodes import MapMode
 from person import Person
 from army import Army
@@ -49,6 +50,7 @@ class Nation:
         self.king.monthly_update()
         if self.king.is_dead:
             self.king = self.get_new_king()
+            log_message(f"{self.king.name} took the throne at age {self.king.age}")
 
     def spawn_army(self):
         pass
