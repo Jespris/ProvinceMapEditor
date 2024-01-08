@@ -11,7 +11,7 @@ from ui import TextBox
 class Nation:
     def __init__(self, name: str, capital: int):
         self.name: str = name
-        self.name_text_box = TextBox((0, 0), (0, 0), f"{self.name} TextBox", 34, bold=True, box_thickness=0, transparent=True)
+        self.name_text_box = TextBox((0, 0), (1, 1), f"{self.name} TextBox", 24, bold=True, box_thickness=0, transparent=True)
         self.capital: int = capital  # province id
         self.provinces: [int] = [self.capital]  # list of province IDs
         self.at_war_with: [] = []  # list of other nations
@@ -19,6 +19,7 @@ class Nation:
         self.color = self.get_random_color()
         self.armies: [Army] = []
         self.king: Person = self.get_new_king()
+        self.civil_war_risk = 0
 
     def update_name_text_box(self, province_dict, node_dict):
         # get the average position of all nodes in the nation and blit the name there
@@ -34,8 +35,6 @@ class Nation:
         # update the text
         self.name_text_box.set_text([self.name])
 
-        pass
-
     def draw(self, screen, map_mode):
         if map_mode == MapMode.POLITICAL:
             self.name_text_box.draw(screen)
@@ -47,9 +46,13 @@ class Nation:
         pass
 
     def monthly_update(self, province_dict):
+        if self.civil_war_risk > 0:
+            self.civil_war_risk -= 1
         self.king.monthly_update()
         if self.king.is_dead:
             self.king = self.get_new_king()
+            if len(self.provinces) > 1:
+                self.civil_war_risk += random.randint(0, 10) + abs(self.king.diplo_power - 10)
             log_message(f"{self.king.name} ({self.king.admin_power}, {self.king.diplo_power}, {self.king.mil_power}) took the throne at age {self.king.age}")
 
         self.develop_nation(province_dict)

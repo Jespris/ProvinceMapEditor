@@ -68,9 +68,6 @@ class GameState:
     # region Game state updaters
     def update(self, screen, ref_image, delta_time):
         # Main update function for the game state
-        if not self.is_paused:
-            self.update_in_game_time(delta_time)
-
         screen.fill(p.Color("black"))
         if self.map_mode == MapMode.TERRAIN:
             screen.blit(ref_image, (0, 0))
@@ -91,11 +88,13 @@ class GameState:
         if selected_province is not None:
             selected_province.draw(screen, self.border_nodes, self.map_mode, self.hide_names)
 
+        if not self.is_paused:
+            self.update_in_game_time(delta_time)
+
         nation: Nation
         for nation in self.nations.values():
             nation.draw(screen, self.map_mode)
 
-        # self.display_nodes(screen)
         if self.developer_mode:
             if self.selected_province is not None:
                 self.show_edit_province_buttons(screen)
@@ -139,9 +138,20 @@ class GameState:
             self.year += 1
             log_message(f"YEAR {self.year}")
 
+        new_nations = []
         nation: Nation
         for nation in self.nations.values():
             nation.monthly_update(self.provinces)
+            nation.update_name_text_box(self.provinces, self.border_nodes)
+            new_n = self.check_civil_war(nation)
+            if new_n is not None:
+                new_nations.append(new_n)
+
+        for n in new_nations:
+            n.daily_update()
+            n.monthly_update(self.provinces)
+            n.update_name_text_box(self.provinces, self.border_nodes)
+            self.nations[n.name] = n
 
         for province in self.provinces.values():
             province.calculate_temp(self.month)
@@ -363,7 +373,12 @@ class GameState:
 
     @staticmethod
     def new_war(sender: Nation, receiver: Nation):
+        log_message(f"{sender.name} declare war on {receiver.name}")
+        for nation in sender.alliances:
+            nation.at_war_with(receiver)
         sender.at_war_with.append(receiver)
+        for nation in receiver.alliances:
+            sender.at_war_with(nation)
         receiver.at_war_with.append(sender)
 
     @staticmethod
@@ -434,6 +449,43 @@ class GameState:
 
         # print(lines)
         self.game_log.set_text(lines)
+
+    def check_civil_war(self, nation: Nation):
+        frequency = 10  # higher number -> lower frequency of civil war, suggested values 0-20
+        if nation.civil_war_risk <= 0:
+            return None
+        else:
+            if random.randint(0, abs(nation.civil_war_risk - 20) + frequency) == 0:
+                # civil war happens, reduce risk
+                nation.civil_war_risk = 0
+                # split nation in two
+                if len(nation.provinces) == 1:
+                    # cannot have a civil war with 1 province, replace king
+                    nation.king.die()
+                    nation.king = nation.get_new_king()
+                    return None
+
+                # spawn new nation with half the provinces of old nation
+                half = len(nation.provinces) // 2
+                random.shuffle(nation.provinces)
+                new_nation_provinces = []
+                for i in range(half):
+                    p_id = nation.provinces.pop(0)
+                    new_nation_provinces.append(p_id)
+                # update the old nation capital
+                nation.capital = nation.provinces[0]
+                # create the new nation
+                capital = self.provinces[new_nation_provinces[0]]
+                new_nation = Nation(capital.name, capital.id)
+                for p_id in new_nation_provinces:
+                    new_nation.add_province(p_id)
+                    self.provinces[p_id].nation = new_nation
+                # declare war
+                self.new_war(nation, new_nation)
+                # log civil war
+                log_message(f"Civil war in {nation.name}")
+                # return the new nation
+                return new_nation
 
 
 
