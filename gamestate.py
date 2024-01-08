@@ -141,7 +141,10 @@ class GameState:
 
         nation: Nation
         for nation in self.nations.values():
-            nation.monthly_update()
+            nation.monthly_update(self.provinces)
+
+        for province in self.provinces.values():
+            province.calculate_temp(self.month)
 
         self.update_game_log()
     # endregion
@@ -208,6 +211,8 @@ class GameState:
             self.map_mode = MapMode.DEVELOPMENT
         elif i == 3:
             self.map_mode = MapMode.POLITICAL
+        elif i == 4:
+            self.map_mode = MapMode.TEMPERATURE
 
     # region 'create' functions
     def add_node(self, node: Node):

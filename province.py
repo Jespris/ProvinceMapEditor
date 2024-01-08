@@ -91,7 +91,6 @@ class Province:
         else:
             self.center_pos = pos
 
-        self.temperature = self.calculate_temp()
         # ui table needs the center set
         self.create_ui_table()
 
@@ -163,9 +162,39 @@ class Province:
         element.set_text([str(self.development)])  # the table should now be updated?!?
     # endregion
 
-    def calculate_temp(self):
-        # TODO: Calculate the average temperature based on the vertical position of the center coordinate
-        return 15
+    def calculate_temp(self, month):
+        from main import HEIGHT
+        # Calculate the average temperature based on:
+        # the vertical position of the center coordinate, terrain and month of the year
+
+        # start_temp = 15
+        # end_temp = 35
+        temp = (1440 + self.center_pos[1]) / 96
+        if self.terrain == TerrainType.HILLS:
+            temp -= 5
+        elif self.terrain == TerrainType.MOUNTAIN or self.terrain == TerrainType.IMPASSABLE_MOUNTAIN:
+            temp -= 15
+        month_to_temp_change = {
+            1: -15,
+            2: -10,
+            3: -5,
+            4: 0,
+            5: 5,
+            6: 10,
+            7: 10,
+            8: 8,
+            9: 3,
+            10: 1,
+            11: -1,
+            12: -8
+        }
+        temp += month_to_temp_change[month]
+        temp += random.randint(-5, 5)
+        self.temperature = int(temp)
+        # update the UI element in the table
+        element = self.info_ui_table.get_table_element_by_name("Attribute Temperature Value")
+        assert isinstance(element, TextBox)
+        element.set_text([str(self.temperature)])  # the table should now be updated?!?
 
     def add_neighbour(self, neighbour_id):
         # Add a neighbouring province
@@ -231,7 +260,7 @@ class Province:
     def draw_province(self, screen, node_dict, map_mode: MapMode):
         # Draw the province shape on the screen
         color = self.get_color(map_mode)
-
+        print(f"Color: {color}")
         p.draw.polygon(screen, color, [node_dict[node_id].pos for node_id in self.border])
 
         for i in range(len(self.border)):
@@ -295,6 +324,10 @@ class Province:
                     return default
                 else:
                     return self.nation.color
+            elif map_mode.is_temp():
+                if self.temperature is not None:
+                    t = (self.temperature + 20) / 50
+                    return self.lerp_color((0, 0, 255), (255, 0, 0), t)
 
         return default
 
@@ -313,6 +346,9 @@ class Province:
         r = int((1 - t) * start_color[0] + t * end_color[0])
         g = int((1 - t) * start_color[1] + t * end_color[1])
         b = int((1 - t) * start_color[2] + t * end_color[2])
+        r = max(0, min(255, r))
+        g = max(0, min(255, g))
+        b = max(0, min(255, b))
         return r, g, b
 
     # endregion
@@ -345,3 +381,7 @@ class Province:
             ui_table.set_table_element(index, 1, value_ui_element)
 
         self.info_ui_table = ui_table
+
+    def increase_development(self):
+        self.development += 1
+        self.info_ui_table.get_table_element_by_name("Attribute Development Value").set_text([str(self.development)])

@@ -1,67 +1,42 @@
-Game ended at 07-01-2024 22:44:58
-YEAR 1091:
-King Aziz 'the energetic' of Galicia took the throne at age 3
-King Ivan 'the warm-hearted' of Galicia died at age 81
-YEAR 1090:
-YEAR 1089:
-King Simone 'the agreeable' of Andalusia took the throne at age 40
-King Didier 'the resilient' of Andalusia died at age 81
-YEAR 1088:
-King Baptiste 'the persistent' of Portugal took the throne at age 20
-King Cedric 'the amiable' of Portugal died at age 70
-YEAR 1087:
-King Mario 'the proactive' of Almoravide took the throne at age 33
-King Mehdi 'the determined' of Almoravide died at age 71
-King Antoine 'the agreeable' of Zirides took the throne at age 15
-King Ali 'the harmonious' of Zirides died at age 55
-King Francois 'the honest' of Francia took the throne at age 21
-King Louis 'the understanding' of Francia died at age 57
-YEAR 1086:
-YEAR 1085:
-YEAR 1084:
-YEAR 1083:
-YEAR 1082:
-YEAR 1081:
-YEAR 1080:
-YEAR 1079:
-YEAR 1078:
-King Fernando 'the proactive' of Milano took the throne at age 12
-King Lorenzo 'the diligent' of Milano died at age 58
-YEAR 1077:
-YEAR 1076:
-YEAR 1075:
-YEAR 1074:
-YEAR 1073:
-YEAR 1072:
-YEAR 1071:
-King Vincent 'the jovial' of Leon took the throne at age 36
-King Xavier 'the praiseworthy' of Leon died at age 52
-King Samir 'the practical' of Gascony took the throne at age 3
-King Patrice 'the genuine' of Gascony died at age 40
-YEAR 1070:
-YEAR 1069:
-King Alejandro 'the independent' of Castilla took the throne at age 3
-King Ivan 'the thoughtful' of Castilla died at age 66
-YEAR 1068:
-King Gabriele 'the understanding' of Granada took the throne at age 34
-King Alexandre 'the determined' of Granada died at age 47
-YEAR 1067:
-King Hakim 'the wise' of Hammadides took the throne at age 1
-King Alberto 'the passionate' of Hammadides died at age 59
-YEAR 1066:
-King Alexandre 'the determined' of Granada took the throne at age 45
-King Julien 'the graceful' of Granada died at age 52
-YEAR 1065:
-YEAR 1064:
-YEAR 1063:
-YEAR 1062:
-YEAR 1061:
-YEAR 1060:
-YEAR 1059:
-YEAR 1058:
-YEAR 1057:
-YEAR 1056:
-YEAR 1055:
-YEAR 1054:
-YEAR 1053:
-New game started at 07-01-2024 22:42:54
+King Khalid 'the patient' of Francia (0, 5, 3) took the throne at age 38
+King Dario 'the respectful' of Francia died at age 62
+YEAR 1075
+King Pablo 'the proactive' of Aragon (6, 2, 6) took the throne at age 8
+King Remy 'the grateful' of Aragon died at age 32
+YEAR 1074
+YEAR 1073
+King Domenico 'the wise' of Portugal (10, 9, 2) took the throne at age 16
+King Najib 'the warm-hearted' of Portugal died at age 12
+YEAR 1072
+YEAR 1071
+King Angel 'the joyful' of Galicia (3, 7, 10) took the throne at age 37
+King Louis 'the balanced' of Galicia died at age 45
+YEAR 1070
+King Najib 'the warm-hearted' of Portugal (0, 3, 4) took the throne at age 10
+King Vincent 'the analytical' of Portugal died at age 46
+YEAR 1069
+King Diego 'the vibrant' of Milano (8, 9, 0) took the throne at age 22
+King Lorenzo 'the intelligent' of Milano died at age 33
+YEAR 1068
+YEAR 1067
+King Hakim 'the unassuming' of Alentejo (0, 2, 4) took the throne at age 5
+King Salvador 'the courageous' of Alentejo died at age 31
+YEAR 1066
+YEAR 1065
+King Alexandre 'the faithful' of Hammadides (2, 7, 4) took the throne at age 45
+King Massimo 'the witty' of Hammadides died at age 47
+YEAR 1064
+YEAR 1063
+YEAR 1062
+YEAR 1061
+YEAR 1060
+YEAR 1059
+YEAR 1058
+YEAR 1057
+YEAR 1056
+YEAR 1055
+YEAR 1054
+YEAR 1053
+King Salvador 'the courageous' of Alentejo (8, 2, 0) took the throne at age 17
+King Salvatore 'the charismatic' of Alentejo died at age 35
+New game started at 08-01-2024 09:59:13

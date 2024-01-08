@@ -74,7 +74,7 @@ def handle_key_down(event, state, main_state):
         print("Creating neighbours...")
         main_state.creating_neighbours = True
         main_state.first_nei = None
-    elif event.key in (p.K_1, p.K_2, p.K_3):
+    elif event.key in (p.K_1, p.K_2, p.K_3, p.K_4):
         print(f"Number key pressed: {int(event.unicode)}")
         state.set_map_mode(int(event.unicode))
     elif event.key == p.K_h:

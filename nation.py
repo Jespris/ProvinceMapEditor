@@ -46,11 +46,13 @@ class Nation:
     def daily_update(self):
         pass
 
-    def monthly_update(self):
+    def monthly_update(self, province_dict):
         self.king.monthly_update()
         if self.king.is_dead:
             self.king = self.get_new_king()
-            log_message(f"{self.king.name} took the throne at age {self.king.age}")
+            log_message(f"{self.king.name} ({self.king.admin_power}, {self.king.diplo_power}, {self.king.mil_power}) took the throne at age {self.king.age}")
+
+        self.develop_nation(province_dict)
 
     def spawn_army(self):
         pass
@@ -78,4 +80,20 @@ class Nation:
         name = male_names.get_random()
         personality = male_names.get_personality()
         return Person(f"King {name} 'the {personality}' of {self.name}", random.randint(0, 50))
+
+    def develop_nation(self, province_dict):
+        development_rate = 70  # higher number -> less development
+        if random.randint(0, development_rate) - self.king.admin_power == 0:
+            provinces = [province_dict[p_id] for p_id in self.provinces]
+            random.shuffle(provinces)
+            chosen_province = provinces[0]
+            while chosen_province.development >= 10 and len(provinces) > 1:  # one province nations cannot increase above 10
+                random.shuffle(provinces)
+                chosen_province = provinces[0]
+            if chosen_province.development < 10:
+                chosen_province.increase_development()
+            # log_message(f"{chosen_province.name} increased development to {chosen_province.development}!")
+
+
+
 

@@ -2,15 +2,16 @@ import random
 from typing import Union
 from log_handler import log_message
 
+
 class Person:
     def __init__(self, name: str, age: int):
         self.name: str = name
         self.age: int = age
         self.is_dead = False
-        self.father: Union[Person, None] = None
-        self.sons: [Person] = []
-        self.heir: Union[Person, None] = None
         self.months_until_birthday = 12
+        self.diplo_power = random.randint(0, 10)
+        self.admin_power = random.randint(0, 10)
+        self.mil_power = random.randint(0, 10)
 
     def __eq__(self, other):
         if not isinstance(other, Person):
