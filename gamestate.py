@@ -142,7 +142,7 @@ class GameState:
         nation: Nation
         for nation in self.nations.values():
             nation.monthly_update(self.provinces)
-            nation.update_name_text_box(self.provinces, self.border_nodes)
+            nation.update_nation_ui_elements(self.provinces, self.border_nodes)
             new_n = self.check_civil_war(nation)
             if new_n is not None:
                 new_nations.append(new_n)
@@ -150,7 +150,7 @@ class GameState:
         for n in new_nations:
             n.daily_update()
             n.monthly_update(self.provinces)
-            n.update_name_text_box(self.provinces, self.border_nodes)
+            n.update_nation_ui_elements(self.provinces, self.border_nodes)
             self.nations[n.name] = n
 
         for province in self.provinces.values():
@@ -209,7 +209,7 @@ class GameState:
                 if p_id != nation.capital:
                     nation.add_province(p_id)
             self.nations[nation_name] = nation
-            nation.update_name_text_box(self.provinces, self.border_nodes)
+            nation.update_nation_ui_elements(self.provinces, self.border_nodes)
 
         print(f"Nations: {[nation.name for nation in self.nations.values()]}")
         print("Parsing complete!")

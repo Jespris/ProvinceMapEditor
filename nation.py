@@ -1,17 +1,18 @@
 import random
-
 import male_names
 from log_handler import log_message
 from mapmodes import MapMode
 from person import Person
 from army import Army
-from ui import TextBox
+from ui import TextBox, Circle_UI_Element
+import pygame as p
 
 
 class Nation:
     def __init__(self, name: str, capital: int):
         self.name: str = name
         self.name_text_box = TextBox((0, 0), (1, 1), f"{self.name} TextBox", 24, bold=True, box_thickness=0, transparent=True)
+        self.capital_icon = Circle_UI_Element((0, 0), 10, f"{self.name} Capital")
         self.capital: int = capital  # province id
         self.provinces: [int] = [self.capital]  # list of province IDs
         self.at_war_with: [] = []  # list of other nations
@@ -21,7 +22,7 @@ class Nation:
         self.king: Person = self.get_new_king()
         self.civil_war_risk = 0
 
-    def update_name_text_box(self, province_dict, node_dict):
+    def update_nation_ui_elements(self, province_dict, node_dict):
         # get the average position of all nodes in the nation and blit the name there
         pos = self.calculate_center(province_dict, node_dict)
         # default textbox size for all nations:
@@ -35,8 +36,14 @@ class Nation:
         # update the text
         self.name_text_box.set_text([self.name])
 
+        self.capital_icon.color = p.Color("gold")
+        pos = province_dict[self.capital].center_pos
+        self.capital_icon.x = pos[0]
+        self.capital_icon.y = pos[1]
+
     def draw(self, screen, map_mode):
         if map_mode == MapMode.POLITICAL:
+            self.capital_icon.draw(screen)
             self.name_text_box.draw(screen)
 
     def add_province(self, province_id: int):

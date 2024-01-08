@@ -26,9 +26,10 @@ class Circle_UI_Element:
         self.x, self.y = center
         self.radius = radius
         self.name = name
+        self.color = p.Color("white")
 
     def draw(self, screen):
-        pass
+        p.draw.circle(screen, self.color, (self.x, self.y), self.radius)
 
     def get_clicked(self, pos: (int, int)) -> bool:
         distance = math.sqrt((pos[0] - self.x) ** 2 + (pos[1] - self.y) ** 2)
