@@ -21,6 +21,7 @@ class GameState:
         self.border_nodes: {int: Node} = {}
         self.provinces: {int: Province} = {}
         self.selected_province: Union[int, None] = None
+        self.selected_nation: Union[Nation, None] = None
         self.day = 1
         self.month = 1
         self.year = 1052
@@ -55,16 +56,20 @@ class GameState:
             if self.map_mode != MapMode.TERRAIN:
                 province.draw(screen, self.border_nodes, self.map_mode, self.hide_names)
 
-        # make sure the selected province is drawn
+        # make sure the selected province is drawn last
         if selected_province is not None:
             selected_province.draw(screen, self.border_nodes, self.map_mode, self.hide_names)
 
         if not self.is_paused:
             self.update_in_game_time(delta_time)
 
-        nation: Nation
-        for nation in self.nations.values():
-            nation.draw(screen, self.map_mode)
+        if self.selected_nation is None:
+            nation: Nation
+            for nation in self.nations.values():
+                nation.draw(screen, self.map_mode, self.border_nodes, self.provinces)
+        else:
+            # only draw the selected nation and their allies and war enemies?
+            self.selected_nation.draw(screen, self.map_mode, self.border_nodes, self.provinces)
 
         if self.developer_mode:
             self.show_fps(screen, delta_time)
@@ -291,12 +296,17 @@ class GameState:
             for nation in self.nations.values():
                 if nation.capital_icon.get_clicked(pos):
                     nation.is_clicked = not nation.is_clicked
+                    if nation.is_clicked:
+                        self.selected_nation = nation
+                    else:
+                        self.selected_nation = None
                     return True
         return False
 
     def reset_nation_clicked(self):
         for nation in self.nations.values():
             nation.is_clicked = False
+        self.selected_nation = None
 
     @staticmethod
     def get_province_distance(province_a: Province, province_b: Province) -> int:

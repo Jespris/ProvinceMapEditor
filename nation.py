@@ -4,7 +4,7 @@ from log_handler import log_message
 from mapmodes import MapMode
 from person import Person
 from army import Army
-from ui import TextBox, Circle_UI_Element, UI_Table, TextAlignment
+from ui import TextBox, Circle_UI_Element, UI_Table
 import pygame as p
 
 
@@ -12,7 +12,7 @@ class Nation:
     def __init__(self, name: str, capital: int):
         self.name: str = name
         self.name_text_box: TextBox = TextBox((0, 0), (1, 1), f"{self.name} TextBox", 24, bold=True, box_thickness=0, transparent=True)
-        self.capital_icon: Circle_UI_Element = Circle_UI_Element((0, 0), 10, f"{self.name} Capital")
+        self.capital_icon: Circle_UI_Element = Circle_UI_Element((0, 0), 12, f"{self.name} Capital")
         self.nation_stats_table: UI_Table = None
         self.is_clicked = False
         self.capital: int = capital  # province id
@@ -46,16 +46,23 @@ class Nation:
         self.capital_icon.x = pos[0]
         self.capital_icon.y = pos[1]
 
-    def draw(self, screen, map_mode):
+    def draw(self, screen, map_mode, node_dict, province_dict):
         if map_mode == MapMode.POLITICAL:
             self.capital_icon.draw(screen)
             self.name_text_box.draw(screen)
             if self.is_clicked:
                 # display the nation stats
-                try:
-                    self.nation_stats_table.draw(screen)
-                except Exception as e:
-                    print(e)
+                self.nation_stats_table.draw(screen)
+                # draw the provinces green, alliance nations blue and war enemies red, all other provinces white
+                for key, value in province_dict.items():
+                    if key in self.provinces:
+                        continue
+                    elif key in [ally.provinces for ally in self.alliances]:
+                        value.draw(screen, node_dict, map_mode, True, is_ally=True)
+                    elif key in [enemy.provinces for enemy in self.at_war_with]:
+                        value.draw(screen, node_dict, map_mode, True, is_enemy=True)
+                    else:
+                        value.draw(screen, node_dict, map_mode, True, is_ally=True, is_enemy=True)
 
     def add_province(self, province_id: int):
         self.provinces.append(province_id)

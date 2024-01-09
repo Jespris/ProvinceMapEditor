@@ -163,7 +163,6 @@ class Province:
     # endregion
 
     def calculate_temp(self, month):
-        from main import HEIGHT
         # Calculate the average temperature based on:
         # the vertical position of the center coordinate, terrain and month of the year
 
@@ -236,9 +235,9 @@ class Province:
 
     # region Province drawing
 
-    def draw(self, screen, node_dict, map_mode, hide_names):
+    def draw(self, screen, node_dict, map_mode, hide_names, is_enemy=False, is_ally=False):
         # Draw the province on the screen
-        self.draw_province(screen, node_dict, map_mode)
+        self.draw_province(screen, node_dict, map_mode, is_enemy, is_ally)
         if not hide_names:
             self.draw_name(screen)
         if self.is_selected:
@@ -257,10 +256,10 @@ class Province:
         text_rect.center = self.center_pos
         screen.blit(text, text_rect)
 
-    def draw_province(self, screen, node_dict, map_mode: MapMode):
+    def draw_province(self, screen, node_dict, map_mode: MapMode, is_enemy=False, is_ally=False):
         # Draw the province shape on the screen
-        color = self.get_color(map_mode)
-        print(f"Color: {color}")
+        color = self.get_color(map_mode, is_enemy, is_ally)
+        # print(f"Color: {color}")
         p.draw.polygon(screen, color, [node_dict[node_id].pos for node_id in self.border])
 
         for i in range(len(self.border)):
@@ -308,7 +307,7 @@ class Province:
 
     # region Province coloring
 
-    def get_color(self, map_mode: MapMode):
+    def get_color(self, map_mode: MapMode, is_enemy=False, is_ally=False):
         # Get the color of the province based on the map mode
         if self.is_selected:
             return self.HIGHLIGHT_COLOR
@@ -323,6 +322,12 @@ class Province:
                     print(f"No nation set for province {self.name}, id: {self.id}")
                     return default
                 else:
+                    if is_enemy and not is_ally:
+                        return p.Color("red")
+                    elif is_ally and not is_enemy:
+                        return p.Color("lightblue")
+                    elif is_ally and is_enemy:  # both -> a nation is selected but self is not associated with it
+                        return p.Color("white")
                     return self.nation.color
             elif map_mode.is_temp():
                 if self.temperature is not None:

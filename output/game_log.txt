@@ -1,34 +1,30 @@
-Game ended at 09-01-2024 10:13:55
+Game ended at 09-01-2024 11:21:03
+King Pietro 'the unassuming' of Languedoc (4, 8, 0) took the throne at age 48
+King Cyril 'the optimistic' of Languedoc died at age 51
 YEAR 1066
+Civil war in Andalusia
+Andalusia declare war on Alicante
+King Nicola 'the forgiving' of Andalusia (7, 4, 3) took the throne at age 45
+King Bilal 'the zealous' of Andalusia died at age 14
 YEAR 1065
+King Lionel 'the warm-hearted' of Navarra (10, 9, 5) took the throne at age 3
+King Roberto 'the self-confident' of Navarra died at age 57
 YEAR 1064
-Civil war in Castilla
-Castilla declare war on Madrid
-King Antonio 'the determined' of Castilla (6, 3, 0) took the throne at age 9
-King Patrice 'the persistent' of Castilla died at age 58
 YEAR 1063
 YEAR 1062
 YEAR 1061
 YEAR 1060
-Civil war in Zirides
-Zirides declare war on Aures
-King Sebastien 'the warm-hearted' of Zirides (10, 5, 1) took the throne at age 22
-King Francisco 'the balanced' of Zirides died at age 46
 YEAR 1059
-King Xavier 'the tactful' of Milano (1, 8, 9) took the throne at age 46
-King Giuseppe 'the calm' of Milano died at age 54
+King Massimo 'the receptive' of Alentejo (2, 4, 8) took the throne at age 28
+King Jacques 'the affectionate' of Alentejo died at age 6
 YEAR 1058
-Civil war in Portugal
-Portugal declare war on Beira
-King Mateo 'the sincere' of Aragon (10, 4, 5) took the throne at age 18
-King Alessio 'the receptive' of Aragon died at age 50
+King Gabriel 'the confident' of Milano (3, 10, 7) took the throne at age 34
+King Ignacio 'the perceptive' of Milano died at age 49
 YEAR 1057
-King Luis 'the unselfish' of Portugal (0, 0, 1) took the throne at age 45
-King Jalil 'the trustworthy' of Portugal died at age 20
+King Bilal 'the zealous' of Andalusia (7, 0, 9) took the throne at age 5
+King Luigi 'the exuberant' of Andalusia died at age 31
 YEAR 1056
 YEAR 1055
-King Marco 'the eloquent' of Almoravide (5, 9, 0) took the throne at age 8
-King Vincent 'the patient' of Almoravide died at age 49
 YEAR 1054
 YEAR 1053
-New game started at 09-01-2024 10:12:57
+New game started at 09-01-2024 11:20:04
