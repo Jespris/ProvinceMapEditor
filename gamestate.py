@@ -4,7 +4,6 @@ import random
 import string
 import pygame as p
 from log_handler import log_message
-from button import EditProvinceButton, NameButton, TerrainButton
 from mapmodes import MapMode
 from nation import Nation
 from node import Node
@@ -16,40 +15,12 @@ from army import Army
 from ui import UI_Table, TextBox, TextAlignment
 
 
-def create_buttons():
-    buttons = []
-
-    name_button = NameButton((20, 20), "Edit name")
-    buttons.append(name_button)
-
-    ocean_button = TerrainButton((140, 20), "Ocean", TerrainType.OCEAN)
-    buttons.append(ocean_button)
-
-    sea_button = TerrainButton((260, 20), "Sea", TerrainType.SEA)
-    buttons.append(sea_button)
-
-    flat_button = TerrainButton((380, 20), "Flat", TerrainType.FLAT)
-    buttons.append(flat_button)
-
-    hills_button = TerrainButton((500, 20), "Hills", TerrainType.HILLS)
-    buttons.append(hills_button)
-
-    mountain_button = TerrainButton((620, 20), "Mountain", TerrainType.MOUNTAIN)
-    buttons.append(mountain_button)
-
-    imp_button = TerrainButton((740, 20), "Impassable", TerrainType.IMPASSABLE_MOUNTAIN)
-    buttons.append(imp_button)
-
-    return buttons
-
-
 class GameState:
     def __init__(self):
         # Initialize game state attributes
         self.border_nodes: {int: Node} = {}
         self.provinces: {int: Province} = {}
         self.selected_province: Union[int, None] = None
-        self.buttons: [EditProvinceButton] = create_buttons()
         self.day = 1
         self.month = 1
         self.year = 1052
@@ -59,7 +30,7 @@ class GameState:
         self.is_paused = False
         self.map_mode: MapMode = MapMode.TERRAIN
         self.hide_names = True
-        self.developer_mode = True
+        self.developer_mode = False
         self.game_clock_ui: UI_Table = self.create_ui_clock()
         self.fps_counter: TextBox = self.create_fps_counter()
         self.game_log: TextBox = self.create_game_log()
@@ -96,9 +67,6 @@ class GameState:
             nation.draw(screen, self.map_mode)
 
         if self.developer_mode:
-            if self.selected_province is not None:
-                self.show_edit_province_buttons(screen)
-
             self.show_fps(screen, delta_time)
 
         self.update_clock()
@@ -314,22 +282,21 @@ class GameState:
             self.fps_counter.set_text(["FPS: " + str(1000 // delta_time)])
             self.fps_counter.draw(screen)
 
-    def show_edit_province_buttons(self, screen):
-        for button in self.buttons:
-            button.draw(screen)
-
     # endregion
 
     # region All the getters
 
-    def get_button_pressed(self, pos):
-        if self.selected_province is not None:  # redundant
-            for button in self.buttons:
-                if button.is_clicked(pos):
-                    button.on_click(self.provinces[self.selected_province])
-                    self.selected_province = None
+    def check_capital_clicked(self, pos):
+        if self.map_mode == MapMode.POLITICAL:
+            for nation in self.nations.values():
+                if nation.capital_icon.get_clicked(pos):
+                    nation.is_clicked = not nation.is_clicked
                     return True
         return False
+
+    def reset_nation_clicked(self):
+        for nation in self.nations.values():
+            nation.is_clicked = False
 
     @staticmethod
     def get_province_distance(province_a: Province, province_b: Province) -> int:

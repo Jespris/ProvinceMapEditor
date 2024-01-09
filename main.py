@@ -97,32 +97,27 @@ def handle_key_down(event, state, main_state):
 def handle_mouse_button_down(event, state, main_state):
     pos = p.mouse.get_pos()
     print(f"Mouse button pressed: {event.button}")
-    if state.selected_province is not None:
-        if event.button == 1:
-            if state.get_button_pressed(pos):
-                return
-        elif event.button == 3:
-            # TODO: do something on right click
-            return
 
     if event.button == 1:
-        province = state.get_province_clicked(pos)
-        if main_state.editing_province:
-            node = state.get_node_clicked(pos)
-            if node is not None:
-                main_state.nodes_clicked.append(node.id)
-        elif main_state.creating_neighbours:
-            if main_state.first_nei is not None and province is not None:
-                state.create_neighbour_pair(main_state.first_nei, province)
-                main_state.first_nei = None
-                main_state.creating_neighbours = False
-            elif province is not None:
-                main_state.first_nei = province
-        if province is not None:
-            if state.selected_province is not None and state.selected_province == province.id:
-                state.selected_province = None
-            elif province.is_passable():
-                state.selected_province = province.id
+        if not state.check_capital_clicked(pos):
+            state.reset_nation_clicked()
+            province = state.get_province_clicked(pos)
+            if main_state.editing_province:
+                node = state.get_node_clicked(pos)
+                if node is not None:
+                    main_state.nodes_clicked.append(node.id)
+            elif main_state.creating_neighbours:
+                if main_state.first_nei is not None and province is not None:
+                    state.create_neighbour_pair(main_state.first_nei, province)
+                    main_state.first_nei = None
+                    main_state.creating_neighbours = False
+                elif province is not None:
+                    main_state.first_nei = province
+            if province is not None:
+                if state.selected_province is not None and state.selected_province == province.id:
+                    state.selected_province = None
+                elif province.is_passable():
+                    state.selected_province = province.id
 
 
 def load_ref_image():

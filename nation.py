@@ -4,22 +4,27 @@ from log_handler import log_message
 from mapmodes import MapMode
 from person import Person
 from army import Army
-from ui import TextBox, Circle_UI_Element
+from ui import TextBox, Circle_UI_Element, UI_Table, TextAlignment
 import pygame as p
 
 
 class Nation:
     def __init__(self, name: str, capital: int):
         self.name: str = name
-        self.name_text_box = TextBox((0, 0), (1, 1), f"{self.name} TextBox", 24, bold=True, box_thickness=0, transparent=True)
-        self.capital_icon = Circle_UI_Element((0, 0), 10, f"{self.name} Capital")
+        self.name_text_box: TextBox = TextBox((0, 0), (1, 1), f"{self.name} TextBox", 24, bold=True, box_thickness=0, transparent=True)
+        self.capital_icon: Circle_UI_Element = Circle_UI_Element((0, 0), 10, f"{self.name} Capital")
+        self.nation_stats_table: UI_Table = None
+        self.is_clicked = False
         self.capital: int = capital  # province id
         self.provinces: [int] = [self.capital]  # list of province IDs
+        self.total_dev = 0
         self.at_war_with: [] = []  # list of other nations
         self.alliances: [] = []  # list of other nations
         self.color = self.get_random_color()
         self.armies: [Army] = []
-        self.king: Person = self.get_new_king()
+        self.king: Person = None
+        self.get_new_king()
+        self.create_table()
         self.civil_war_risk = 0
 
     def update_nation_ui_elements(self, province_dict, node_dict):
@@ -45,6 +50,12 @@ class Nation:
         if map_mode == MapMode.POLITICAL:
             self.capital_icon.draw(screen)
             self.name_text_box.draw(screen)
+            if self.is_clicked:
+                # display the nation stats
+                try:
+                    self.nation_stats_table.draw(screen)
+                except Exception as e:
+                    print(e)
 
     def add_province(self, province_id: int):
         self.provinces.append(province_id)
@@ -57,12 +68,14 @@ class Nation:
             self.civil_war_risk -= 1
         self.king.monthly_update()
         if self.king.is_dead:
-            self.king = self.get_new_king()
+            self.get_new_king()
             if len(self.provinces) > 1:
                 self.civil_war_risk += random.randint(0, 10) + abs(self.king.diplo_power - 10)
             log_message(f"{self.king.name} ({self.king.admin_power}, {self.king.diplo_power}, {self.king.mil_power}) took the throne at age {self.king.age}")
 
+        self.update_king_info()
         self.develop_nation(province_dict)
+        self.calculate_total_dev(province_dict)
 
     def spawn_army(self):
         pass
@@ -89,7 +102,7 @@ class Nation:
     def get_new_king(self):
         name = male_names.get_random()
         personality = male_names.get_personality()
-        return Person(f"King {name} 'the {personality}' of {self.name}", random.randint(0, 50))
+        self.king = Person(f"King {name} 'the {personality}' of {self.name}", random.randint(0, 50))
 
     def develop_nation(self, province_dict):
         development_rate = 70  # higher number -> less development
@@ -104,6 +117,47 @@ class Nation:
                 chosen_province.increase_development()
             # log_message(f"{chosen_province.name} increased development to {chosen_province.development}!")
 
+    def create_table(self):
+        from main import WIDTH
+        table_width = WIDTH
+        table_height = 50
+
+        table_texts = {0: self.name,
+                       1: f"{self.king.name} ({self.king.age})",
+                       2: f"Admin {self.king.admin_power}, Diplo {self.king.diplo_power}, Mil {self.king.mil_power}",
+                       3: f"Total development: {self.total_dev}"}
+
+        ui_table = UI_Table((0, 0), (table_width, table_height), f"NationTable", 1, len(table_texts))
+        ps = (0, 0)
+        for key, value in table_texts.items():
+            # positions and sizes automatically get set by table
+            ui_element = TextBox(ps, ps, f"Attribute {key}", 20, bold=False)
+            ui_element.set_text([value])
+
+            ui_table.set_table_element(0, key, ui_element)
+
+        self.nation_stats_table = ui_table
+
+    def calculate_total_dev(self, province_dict):
+        total = 0
+        for p_id in self.provinces:
+            total += province_dict[p_id].development
+
+        self.total_dev = total
+        if self.nation_stats_table is not None:
+            text_box = self.nation_stats_table.get_table_element_by_name("Attribute 3")
+            assert isinstance(text_box, TextBox)
+            text_box.set_text([f"Total development: {self.total_dev}"])
+
+    def update_king_info(self):
+        if self.nation_stats_table is not None:
+            text_box = self.nation_stats_table.get_table_element_by_name("Attribute 1")
+            assert isinstance(text_box, TextBox)
+            text_box.set_text([f"{self.king.name} ({self.king.age})"])
+
+            text_box = self.nation_stats_table.get_table_element_by_name("Attribute 2")
+            assert isinstance(text_box, TextBox)
+            text_box.set_text([f"Admin {self.king.admin_power}, Diplo {self.king.diplo_power}, Mil {self.king.mil_power}"])
 
 
 

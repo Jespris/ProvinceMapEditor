@@ -94,7 +94,7 @@ class TextBox(Rect_UI_Element):
     def draw_text(self, screen):
         side_gap = self.text_size
         total_text_height = len(self.text) * self.text_size
-        print(f"Total text height: {total_text_height}, text: {self.text}, font size: {self.text_size}")
+        # print(f"Total text height: {total_text_height}, text: {self.text}, font size: {self.text_size}")
         assert total_text_height < self.height
         start_y = self.y + (self.height - total_text_height) // 2
         text_color = p.Color("black")
@@ -128,7 +128,7 @@ class UI_Table(Rect_UI_Element):
         self.is_fitted = False
 
     def fit_table(self):
-        print("Fitting table")
+        # print("Fitting table")
         col_width = self.width // self.cols
         row_height = self.height // self.rows
         for (row, col), element in self.table.items():

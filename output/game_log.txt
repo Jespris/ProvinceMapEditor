@@ -1,54 +1,34 @@
-Game ended at 08-01-2024 11:20:49
-YEAR 1078
-YEAR 1077
-King Cyril 'the proactive' of Francia (0, 7, 7) took the throne at age 24
-King Francesco 'the polite' of Francia died at age 62
-YEAR 1076
-YEAR 1075
-King Fernando 'the inventive' of Kabylia (7, 8, 6) took the throne at age 28
-King Joel 'the artistic' of Kabylia died at age 45
-YEAR 1074
-YEAR 1073
-King Mathieu 'the unselfish' of Granada (7, 4, 9) took the throne at age 9
-King Francois 'the pleasant' of Granada died at age 38
-YEAR 1072
-YEAR 1071
-YEAR 1070
-King Farid 'the adventurous' of Alentejo (7, 2, 1) took the throne at age 50
-King Louis 'the resourceful' of Alentejo died at age 36
-YEAR 1069
-YEAR 1068
-YEAR 1067
+Game ended at 09-01-2024 10:13:55
 YEAR 1066
-King Enrique 'the loyal' of Languedoc (5, 9, 10) took the throne at age 24
-King Joaquin 'the amiable' of Languedoc died at age 46
 YEAR 1065
-King Francesco 'the polite' of Francia (10, 6, 2) took the throne at age 50
-King Giuseppe 'the understanding' of Francia died at age 26
 YEAR 1064
+Civil war in Castilla
+Castilla declare war on Madrid
+King Antonio 'the determined' of Castilla (6, 3, 0) took the throne at age 9
+King Patrice 'the persistent' of Castilla died at age 58
 YEAR 1063
-King Jalil 'the trustworthy' of Zirides (6, 1, 0) took the throne at age 41
-King Mario 'the radiant' of Zirides died at age 44
 YEAR 1062
 YEAR 1061
-Civil war in Galicia
-Galicia declare war on Monterrei
-King Aleix 'the affectionate' of Galicia (2, 0, 10) took the throne at age 13
-King Sebastien 'the trustworthy' of Galicia died at age 17
 YEAR 1060
+Civil war in Zirides
+Zirides declare war on Aures
+King Sebastien 'the warm-hearted' of Zirides (10, 5, 1) took the throne at age 22
+King Francisco 'the balanced' of Zirides died at age 46
 YEAR 1059
+King Xavier 'the tactful' of Milano (1, 8, 9) took the throne at age 46
+King Giuseppe 'the calm' of Milano died at age 54
 YEAR 1058
-Civil war in Hammadides
-Hammadides declare war on Kabylia
-King Louis 'the resourceful' of Alentejo (2, 3, 4) took the throne at age 24
-King Davide 'the resilient' of Alentejo died at age 38
-King Jamal 'the stoic' of Hammadides (9, 2, 8) took the throne at age 6
-King Oscar 'the innovative' of Hammadides died at age 54
+Civil war in Portugal
+Portugal declare war on Beira
+King Mateo 'the sincere' of Aragon (10, 4, 5) took the throne at age 18
+King Alessio 'the receptive' of Aragon died at age 50
 YEAR 1057
-King Jamal 'the wise' of Navarra (9, 1, 8) took the throne at age 15
-King Benjamin 'the self-confident' of Navarra died at age 23
+King Luis 'the unselfish' of Portugal (0, 0, 1) took the throne at age 45
+King Jalil 'the trustworthy' of Portugal died at age 20
 YEAR 1056
 YEAR 1055
+King Marco 'the eloquent' of Almoravide (5, 9, 0) took the throne at age 8
+King Vincent 'the patient' of Almoravide died at age 49
 YEAR 1054
 YEAR 1053
-New game started at 08-01-2024 11:19:09
+New game started at 09-01-2024 10:12:57
