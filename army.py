@@ -3,7 +3,7 @@ import pygame as p
 
 
 class Army:
-    def __init__(self, name: str, spawn_province, nation=None):
+    def __init__(self, name: str, spawn_province, nation=None, max_strength=100):
         # Initialize unit attributes
         self.name = name
         self.path = []  # List to store the path of provinces
@@ -11,6 +11,7 @@ class Army:
         self.current_province = spawn_province  # The current province the unit is in
         self.move_points_regen = 10  # Movement points regenerated per day
         self.nation = nation
+        self.max_strength = max_strength
         self.strength = 1
 
     def set_nation(self, nation):
@@ -30,11 +31,11 @@ class Army:
         if self.has_path():
             if self.current_province == self.path[0]:
                 self.current_province = self.path.pop(0)
-
-            movement_cost = self.get_next_province().base_cost_to_enter()
-            if self.movement_points - movement_cost >= 0:
-                self.current_province = self.path.pop(0)
-                self.movement_points -= movement_cost
+            if self.has_path():
+                movement_cost = self.get_next_province().base_cost_to_enter()
+                if self.movement_points - movement_cost >= 0:
+                    self.current_province = self.path.pop(0)
+                    self.movement_points -= movement_cost
 
     def can_change_path(self):
         # Check if the unit can change its path based on movement points
@@ -44,7 +45,7 @@ class Army:
 
     def has_path(self):
         # Check if the unit has a path to follow
-        return self.path is not None
+        return self.path != []
 
     def get_next_province(self):
         # Get the next province in the unit's path

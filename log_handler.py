@@ -8,11 +8,10 @@ def log_message(message):
 
     # Open the file in write mode to overwrite its content
     with open('output/game_log.txt', 'w') as file:
-        # Write your message at the beginning of the file
-        file.write(message + '\n')
-
-        # Write back the existing content
+        # Write the existing content
         file.write(file_content)
+        # Write your message at the end of the file
+        file.write('\n' + message)
 
 
 def reset_log():

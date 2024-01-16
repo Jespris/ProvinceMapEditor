@@ -1,7 +1,10 @@
 import random
+
+import calculations
 import male_names
 from log_handler import log_message
 from mapmodes import MapMode
+from pathFinder import PathSearch
 from person import Person
 from army import Army
 from ui import TextBox, Circle_UI_Element, UI_Table
@@ -67,8 +70,8 @@ class Nation:
     def add_province(self, province_id: int):
         self.provinces.append(province_id)
 
-    def daily_update(self):
-        pass
+    def daily_update(self, province_dict):
+        self.daily_update_armies(province_dict)
 
     def monthly_update(self, province_dict):
         if self.civil_war_risk > 0:
@@ -165,6 +168,77 @@ class Nation:
             text_box = self.nation_stats_table.get_table_element_by_name("Attribute 2")
             assert isinstance(text_box, TextBox)
             text_box.set_text([f"Admin {self.king.admin_power}, Diplo {self.king.diplo_power}, Mil {self.king.mil_power}"])
+
+    def is_at_war(self):
+        return self.at_war_with is not None
+
+    def get_target_province_id(self, army: Army, province_dict) -> int:
+        # war priorities
+        # first, target weaker armies: if this army is next to a much weaker army, attack!
+        for nation in self.at_war_with:
+            for enemy_army in nation.armies:
+                if enemy_army.current_province.id in army.current_province.neighbours:
+                    if enemy_army.strength * 2 <= army.strength:
+                        return enemy_army.current_province.id
+
+        # second, defence: defend home nation: go to occupied provinces
+        occupied_provinces = []
+        for p_id in self.provinces:
+            if province_dict[p_id].occupied_by is not None:
+                occupied_provinces.append(p_id)
+
+        if occupied_provinces:
+            random.shuffle(occupied_provinces)
+            return occupied_provinces[0]
+
+        # third, offense: for each enemy province that aren't occupied id:s check if neighbours is in self provinces,
+        # append that to a list of potential targets, then take a random one from there
+        potential_targets = []
+        for nation in self.at_war_with:
+            for p_id in nation.provinces:
+                pro = province_dict[p_id]
+                if pro.occupied_by is None:
+                    for neighbour in pro.neighbours:
+                        if neighbour in self.provinces:
+                            potential_targets.append(p_id)
+                            break
+
+        # if no enemy province borders us, move to the capital
+        if potential_targets:
+            random.shuffle(potential_targets)
+            return potential_targets[0]
+        else:
+            return self.provinces[0]
+
+    def raise_armies(self, province_dict):
+        if self.is_at_war() and not self.armies:
+            # armies strength goes to 100, have one strength per development?
+            nr_armies = self.total_dev // 100
+            remainder = self.total_dev % 100
+            self.armies.append(Army(f"{self.name} support army", province_dict[self.capital], nation=self, max_strength=remainder))
+            for i in range(nr_armies):
+                self.armies.append(Army(f"{self.name} {i + 1} army", province_dict[self.capital], nation=self))
+
+    def daily_update_armies(self, province_dict):
+        if self.is_at_war():
+            self.raise_armies(province_dict)
+            for army in self.armies:
+                if not army.has_path():
+                    p_id = self.get_target_province_id(army, province_dict)
+                    # set a new path for armies
+                    end_province = province_dict[p_id]
+                    if end_province.is_passable():
+                        print(f"Setting path from {army.current_province.name} to {end_province.name} for {army.name}")
+                        path_search = PathSearch(province_dict, army, army.current_province.id, p_id, calculations.get_province_distance)
+                        path_search.find_path()
+                        assert path_search.path is not None
+                        path = [province_dict[province_id] for province_id in path_search.path]
+                        army.path = path
+
+                army.daily_update()
+        else:
+            self.armies = []
+
 
 
 

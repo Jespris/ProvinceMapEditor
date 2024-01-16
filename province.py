@@ -1,7 +1,6 @@
 import json
 import random
 import calculations
-from nation import Nation
 from mapmodes import MapMode
 from terraintype import TerrainType
 import pygame as p
@@ -36,8 +35,9 @@ class Province:
         self.is_selected = False
         self.development = 0
         self.info_ui_table = None
-        self.nation: Union[Nation, None] = None
-        self.occupied_by: Union[Nation, None] = None
+        self.nation = None
+        self.occupied_by = None
+        self.siege_timer = 100
 
     def __eq__(self, other):
         # Check if two provinces are equal
@@ -248,7 +248,7 @@ class Province:
         # Draw the province name on the screen
         text_size = 18
         font = p.font.Font('freesansbold.ttf', text_size)
-        color =  p.Color("black")
+        color = p.Color("black")
         if self.terrain == TerrainType.IMPASSABLE_MOUNTAIN:
             color = p.Color("white")
         text = font.render(self.name, False, color)

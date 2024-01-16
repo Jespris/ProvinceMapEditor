@@ -3,6 +3,8 @@ import math
 import random
 import string
 import pygame as p
+
+import calculations
 from log_handler import log_message
 from mapmodes import MapMode
 from nation import Nation
@@ -102,7 +104,7 @@ class GameState:
             self.day = 1
 
         for nation in self.nations.values():
-            nation.daily_update()
+            nation.daily_update(self.provinces)
 
     def update_month(self):
         self.month += 1
@@ -121,7 +123,7 @@ class GameState:
                 new_nations.append(new_n)
 
         for n in new_nations:
-            n.daily_update()
+            n.daily_update(self.provinces)
             n.monthly_update(self.provinces)
             n.update_nation_ui_elements(self.provinces, self.border_nodes)
             self.nations[n.name] = n
@@ -308,15 +310,10 @@ class GameState:
             nation.is_clicked = False
         self.selected_nation = None
 
-    @staticmethod
-    def get_province_distance(province_a: Province, province_b: Province) -> int:
-        return int(math.sqrt((province_a.center_pos[0] - province_b.center_pos[0])**2 +
-                             (province_a.center_pos[1] - province_b.center_pos[1])**2))
-
     def get_province_id_distance(self, a: int, b: int) -> int:
         pro_a = self.provinces[a]
         pro_b = self.provinces[b]
-        return self.get_province_distance(pro_a, pro_b)
+        return calculations.get_province_distance(pro_a, pro_b)
 
     def get_province_by_name(self, name) -> Optional[Province]:
         for province in self.provinces.values():
@@ -413,19 +410,14 @@ class GameState:
 
     def update_game_log(self):
         nr_lines = 12
-        lines = []
         # Open the file in read mode
         with open('output/game_log.txt', 'r') as file:
-            # Read the first 8 lines
-            for i in range(nr_lines):
-                line = file.readline().strip()
-                if not line:
-                    break
-                lines.append(line)
-                lines.append(" ")
+            # Read the first 12 lines
+            all_lines = file.readlines()
+            last_lines = all_lines[-nr_lines:]
 
         # print(lines)
-        self.game_log.set_text(lines)
+        self.game_log.set_text([line.strip() for line in last_lines])
 
     def check_civil_war(self, nation: Nation):
         frequency = 10  # higher number -> lower frequency of civil war, suggested values 0-20
